@@ -110,11 +110,7 @@ class EmployerController extends Controller
 
             Alert::toast('Le fichier du l\'employer a ete enregistre avec Succès','success');
             return redirect()->back();
-            // // for($i=0; $i<count($headers); $i++){
 
-            // // }
-            // unset($data[0][0]);
-            // dd($data[0]);
         } else {
             Alert::toast('Le fichier du l\'employer est obligatoire','error');
             return redirect()->back();

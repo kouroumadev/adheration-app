@@ -20,26 +20,41 @@
                             @endif
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('new-employee') }}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="col-sm-6 mb-3">
-                                    <input type="file" class="form-control" name="employee_file" type="file" id="employee_file">
-                                </div>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="card text-white bg-success">
+                                        <div class="card-body">
+                                          <h5 class="card-title text-white">Important !</h5>
+                                          <p class="card-text">
+                                            Avant d'inserer la liste de vos employers, veuillez telecharger le fichier (Echentillion) ci-dessous pour etre en conformiter
+                                            avec les regles du fichier des employers.
+                                          </p>
+                                          <button type="button" class="btn btn-primary">
+                                            <a
+                                                href='/asset/employee_list.xlsx' target="_blank"
+                                            style="color:#fff;">Telecharger le fichier (Echentillion)</a>
 
-                                <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Enregister</button>
+                                        </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
+                                <div class="col-md-6 col-12">
+                                    <form method="post" action="{{ route('new-employee') }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="col-sm-12 mb-3">
+                                            <input type="file" class="form-control" name="employee_file" type="file" id="employee_file">
+                                        </div>
+
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Enregister</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
 
                         </div>
-                        <div class="card-body">
-                            <button type="button" class="btn btn-success">
-                                <a
-                                    href='/asset/employee_list.xlsx' target="_blank"
-                                style="color:#fff;">Telecharger le fichier teste</a>
 
-                            </button>
-                        </div>
 
                     </div>
 
