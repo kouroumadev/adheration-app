@@ -13,7 +13,7 @@ class EmployeesImport implements ToModel, WithHeadingRow
      public function model(array $row)
      {
           return new Employer([
-            'nom_employer' => $row['nom_employer'],
+            'nom_employer' => $row['nom_employer'] ?? '',
             'prenom_employer' => $row['prenom_employer'],
             'sexe_employer' => $row['sexe_employer'],
             'matricule' => $row['matricule'],
