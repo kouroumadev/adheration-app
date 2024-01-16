@@ -1,0 +1,38 @@
+.form-floating label{
+    left: 15px !important;
+    top: -10px !important;
+}
+/* #telephone_representant label{
+    left: 25px !important;
+} */
+#prenomError,#nomError, #emailError,#cinError,#adresseError,#telephoneError,.error-msg{
+display: none;
+font-size: 0.8em;
+}
+
+/* #prenomError.visible,#nomError.visible,#emailError.visible,
+#cinError.visible,#adresseError.visible,#telephoneError.visible {
+display: block;
+} */
+
+.form-floating.error input, .form-floating.error textarea, .iti.error input, .form-file.error{
+border-color: red !important;
+}
+.iti--allow-dropdown {
+width: 100%;
+}
+.form-floating.error .error-msg, .iti--allow-dropdown.error .error-msg, .form-file.error .error-msg {
+display: block;
+}
+
+#loader{
+    position: fixed;
+    display: none;
+    left: 400px;
+    top: 100px;
+    width: 50%;
+    height: 50%;
+    z-index: 99999;
+    margin: auto;
+    background: url(https://media.tenor.com/On7kvXhzml4AAAAj/loading-gif.gif) 50% 50% no-repeat rgba(227, 213, 213, 0);
+}
