@@ -74,6 +74,7 @@ Route::middleware([
     Route::get('/immatriculation', [TeleDeclController::class, 'Immatriculation'])->name('immatriculation');
     Route::get('/charge-ajout-assure', [TeleDeclController::class, 'ChargeAjoutAssure'])->name('charge-ajout-assure');
     Route::get('/import-immatriculation', [TeleDeclController::class, 'ImportImmatriculation'])->name('import-immatriculation');
+    Route::get('/import-teledeclaration', [TeleDeclController::class, 'ImportTeledeclaration'])->name('import-teledeclaration');
     Route::post('/ajout-employer', [TeleDeclController::class, 'AjoutEmployer'])->name('ajout-employer');
     Route::get('/employer-detail/{id}', [TeleDeclController::class, 'EmployerDetail'])->name('employer-detail');
     Route::get('/get-employer', [TeleDeclController::class, 'GetEmployer'])->name('get-employer');
@@ -91,7 +92,11 @@ Route::middleware([
 
 
     /////////ROUTES FOR EMPLOYEE EXCEL CSV FILE /////////
-    Route::post('/new-employee', [EmployerController::class, 'addEmpExcel'])->name('new-employee');
+    Route::post('/import-employee', [EmployerController::class, 'importEmployee'])->name('import-employee');
+
+    ///////ROUTES FOR COTISATIONS ///////////////
+    Route::post('/import-cotisation', [EmployerController::class, 'importCotisation'])->name('import-cotisation');
+
 
 
 

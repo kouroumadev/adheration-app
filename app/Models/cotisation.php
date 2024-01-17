@@ -12,13 +12,14 @@ class cotisation extends Model
     protected $fillable = [
         'id',
         'entreprise_id',
-            'employer_id',
-            'jour_declare',
-            'periode_debut',
-            'periode_fin',
-            'salaire_brute',
-            'salaire_soumis',
-            'montant_cotise',
+        'parent_id',
+        'employer_id',
+        'jour_declare',
+        'periode_debut',
+        'periode_fin',
+        'salaire_brut',
+        'salaire_soumis',
+        'montant_cotise',
 
     ];
 

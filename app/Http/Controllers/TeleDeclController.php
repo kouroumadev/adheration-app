@@ -45,6 +45,18 @@ class TeleDeclController extends Controller
         $employers = Employer::where('entreprise_id',$entreprise_id)->where('liberer',1)->get();
         return view('pages.frontView.import-immatriculation',compact('entreprise_id','employers'));
     }
+    public function ImportTeledeclaration(){
+
+        $entreprise_id = Auth::user()->entreprise_id;
+        $cotisations = cotisation::with(['entreprises','employers'])->where('entreprise_id',$entreprise_id)
+        ->where('parent_id',"!=",null)->get();
+        $employers = Employer::where('entreprise_id',$entreprise_id)->get();
+        // dd($cotisations[0]['salaire_brut']);
+        $entreprise = Entreprise::find($entreprise_id);
+        // dd($entreprise);
+        return view('pages.frontView.import-teledeclaration',compact('entreprise','cotisations','employers'));
+
+    }
 
     public function AjoutEmployer(Request $request){
         $n_immatriculation = Str::upper(Str::random(13));

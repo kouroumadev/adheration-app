@@ -7,6 +7,7 @@ use App\Models\Employer;
 use App\Models\cotisation;
 use App\Models\Entreprise;
 use App\Imports\EmployeesImport;
+use App\Imports\CotisationImport;
 use Auth;
 use Hash;
 use DB;
@@ -82,7 +83,7 @@ class EmployerController extends Controller
 
     }
 
-    public function addEmpExcel(Request $request){
+    public function importEmployee(Request $request){
         // dd($request->all());
         // dd(Auth::user()->entreprise_id);
 
@@ -101,8 +102,25 @@ class EmployerController extends Controller
 
         if(Input::hasFile('employee_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('employee_file'));
+
             if(count($headers) != count($headings[0][0])){
-                return Redirect::back()->withErrors(['msg' => "Le fichier de l'employer doit etre conforme avec le fichier teste"]);
+                return Redirect::back()->withErrors([
+                    'msg' => "Le fichier de l'employer doit etre conforme avec le fichier teste, verifiez le nombre de colonnes"
+                ]);
+            }
+
+            $diff_result = array_diff($headers, $headings[0][0]);
+            if(count($diff_result)>0){
+                $err = array();
+
+                foreach($diff_result as $key=>$value){
+                    $err[] = $value;
+                }
+
+                return Redirect::back()->withErrors([
+                    'msg' => "Le fichier de l'employer doit etre conforme avec le fichier teste, les colonnes ci-dessous sont absents",
+                    'sms' => $err,
+                ]);
             }
 
             // Excel::toArray(new EmployeesImport, request()->file('employee_file'));
@@ -116,5 +134,58 @@ class EmployerController extends Controller
             return redirect()->back();
 
         }
+    }
+
+    public function importCotisation (Request $request){
+        // dd($request->all());
+
+        $request->validate(
+            [
+                'cotisation_file' => 'required|mimes:xlsx,xls',
+            ],
+            [
+                'cotisation_file.required' => "Le fichier de l'employer est obligatoire",
+                'cotisation_file.mimes' => "Le fichier de l'employer doit etre du type: xlsx, xls",
+            ]
+        );
+
+        $headers = ['parent_id','employer_matricule','jour_declare','periode_debut','periode_fin','salaire_brut'];
+
+        if(Input::hasFile('cotisation_file')){
+            $headings = (new HeadingRowImport)->toArray(request()->file('cotisation_file'));
+
+            if(count($headers) != count($headings[0][0])){
+                return Redirect::back()->withErrors([
+                    'msg' => "Le fichier de Cotisation doit etre conforme avec le fichier teste, verifiez le nombre de colonnes"
+                ]);
+            }
+
+            $diff_result = array_diff($headers, $headings[0][0]);
+            if(count($diff_result)>0){
+                $err = array();
+
+                foreach($diff_result as $key=>$value){
+                    $err[] = $value;
+                }
+
+                return Redirect::back()->withErrors([
+                    'msg' => "Le fichier de Cotisation doit etre conforme avec le fichier teste, les colonnes ci-dessous sont absents",
+                    'sms' => $err,
+                ]);
+            }
+
+            // Excel::toArray(new EmployeesImport, request()->file('cotisation_file'));
+            $t = Excel::import(new CotisationImport, request()->file('cotisation_file'));
+            // dd($t);
+
+            Alert::toast('Le fichier de Cotisation a ete enregistre avec Succès','success');
+            return redirect()->back();
+
+        } else {
+            Alert::toast('Le fichier du Cotisation est obligatoire','error');
+            return redirect()->back();
+
+        }
+
     }
 }

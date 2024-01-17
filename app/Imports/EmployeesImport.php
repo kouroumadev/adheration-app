@@ -5,15 +5,16 @@ namespace App\Imports;
 use App\Models\Employer;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 use Auth;
 use Carbon\Carbon;
 
-class EmployeesImport implements ToModel, WithHeadingRow
+class EmployeesImport implements ToModel, WithValidation, WithHeadingRow
 {
      public function model(array $row)
      {
           return new Employer([
-            'nom_employer' => $row['nom_employer'] ?? '',
+            'nom_employer' => $row['nom_employer'],
             'prenom_employer' => $row['prenom_employer'],
             'sexe_employer' => $row['sexe_employer'],
             'matricule' => $row['matricule'],
@@ -45,6 +46,13 @@ class EmployeesImport implements ToModel, WithHeadingRow
 
 
      }
+     public function rules(): array
+    {
+        return [
+            'nom_employer' => 'required',
+            'prenom_employer' => 'required',
+        ];
+    }
 
     //  public function headingRow(): int
     //  {

@@ -8,7 +8,7 @@
 
                     <div class="card">
                         <div class="card-header mb-3">
-                            Téléchargement du fichier d'Immatriculation
+                            Téléchargement du fichier de cotisation
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -26,8 +26,8 @@
                                         <div class="card-body">
                                           <h5 class="card-title text-white">Important !</h5>
                                           <p class="card-text">
-                                            Avant d'inserer la liste de vos employers, veuillez telecharger le fichier teste ci-dessous pour etre en conformiter
-                                            avec les regles du fichier des employers.
+                                            Avant d'inserer la liste des cotisations, veuillez telecharger le fichier teste ci-dessous pour etre en conformiter
+                                            avec les regles du fichier des cotisations.
                                           </p>
                                           <button type="button" class="btn btn-primary">
                                             <a
@@ -39,10 +39,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
-                                    <form method="post" action="{{ route('import-employee') }}" enctype="multipart/form-data">
+                                    <form method="post" action="{{ route('import-cotisation') }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="col-sm-12 mb-3">
-                                            <input type="file" class="form-control" name="employee_file" type="file" id="employee_file" required>
+                                            <input type="file" class="form-control" name="cotisation_file" type="file" id="cotisation_file" required>
                                         </div>
 
                                         <div class="col-sm-10">
@@ -76,25 +76,33 @@
                             </div> --}}
                             <thead>
                                 <tr>
-                                    <th scope="col">Numéro Affiliation</th>
-                                    <th scope="col">Matricule</th>
-                                    <th scope="col">Prenom</th>
                                     <th scope="col">Nom</th>
-                                    <th scope="col">Date de Naissance</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Prenom</th>
+                                    <th scope="col">Salaire Brut</th>
+                                    <th scope="col">Salaire Soumis A cotisation</th>
+                                    <th scope="col">Montant cotise</th>
+                                    <th scope="col">Periode Debut</th>
+                                    <th scope="col">Periode Fin</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employers as $dem)
-                                    <tr>
+                                @foreach ($cotisations as $dem )
+                                <tr>
 
-                                        <td> <a href="{{ route('employer-detail',$dem['id']) }}"> {{ $dem['n_immatriculation'] }}</a></td>
-                                        <td>{{ $dem['matricule'] }}</td>
-                                        <td>{{ $dem['prenom_employer'] }}</td>
-                                        <td>{{ $dem['nom_employer'] }}</td>
-                                        <td>{{ $dem['date_naissance_employer'] }}</td>
-                                        <td><button  class="btn btn-danger rounded-pill" id="{{ $dem['id'] }}" onclick="Libre(this.id)">Sortie</button></td>
-                                    </tr>
+                                    <td>{{ $dem['employers']['nom_employer'] }}</td>
+                                    <td>{{ $dem['employers']['prenom_employer']}}</td>
+                                    <td>{{ $dem['salaire_brut']}} </td>
+                                    <td>{{ $dem['salaire_soumis'] }}</td>
+                                    <td>{{ $dem['montant_cotise']}}</td>
+                                    <td>{{ $dem['periode_debut']}}</td>
+                                    <td>{{ $dem['periode_fin']}} </td>
+
+                                    {{-- <td>
+                                       <a href="#" class="btn btn-info" onclick="getInfo('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#largeModal" > <i class="bi bi-eye"></i> voir</a>
+                                       <a href="#" class="btn btn-success" onclick="assignId('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#basicModal"> <i class="bi bi-check"></i> Approuver</a>
+
+                                    </td> --}}
+                                  </tr>
                                 @endforeach
                                 {{-- {{ route('liberer-employer', $dem['id']) }} --}}
 

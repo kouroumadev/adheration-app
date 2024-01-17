@@ -229,17 +229,17 @@
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Télédéclaration</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="components-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('tele-dec') }}">
               <i class="bi bi-circle"></i><span>Saisie sur Formulaire</span>
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="{{ route('import-teledeclaration') }}">
               <i class="bi bi-circle"></i><span>Transmission sur Fichier</span>
             </a>
           </li>
@@ -252,6 +252,7 @@
           <i class="bi bi-dash-circle"></i>
           <span>Mes cotisations</span>
         </a>
+
       </li><!-- End Error 404 Page Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="users-profile.html">

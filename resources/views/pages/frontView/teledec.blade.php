@@ -57,7 +57,7 @@
           </div>
 
         </div>
-      </div>
+    </div>
 
 
   <div class="card" style="max-width: 100%">
