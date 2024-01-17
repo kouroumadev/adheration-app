@@ -149,7 +149,7 @@ class EmployerController extends Controller
             ]
         );
 
-        $headers = ['parent_id','employer_matricule','jour_declare','periode_debut','periode_fin','salaire_brut'];
+        $headers = ['parent_id','employer_matricule','jour_declare','periode_debut','periode_fin','salaire_brute'];
 
         if(Input::hasFile('cotisation_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('cotisation_file'));
@@ -175,7 +175,7 @@ class EmployerController extends Controller
             }
 
             // Excel::toArray(new EmployeesImport, request()->file('cotisation_file'));
-            $t = Excel::import(new CotisationImport, request()->file('cotisation_file'));
+            Excel::import(new CotisationImport, request()->file('cotisation_file'));
             // dd($t);
 
             Alert::toast('Le fichier de Cotisation a ete enregistre avec Succès','success');

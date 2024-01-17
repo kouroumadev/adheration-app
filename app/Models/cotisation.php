@@ -17,7 +17,7 @@ class cotisation extends Model
         'jour_declare',
         'periode_debut',
         'periode_fin',
-        'salaire_brut',
+        'salaire_brute',
         'salaire_soumis',
         'montant_cotise',
 

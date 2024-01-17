@@ -20,7 +20,7 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
 
         $employee_id = Employer::where('matricule',$row['employer_matricule'])->value('id');
 
-        $salaire = (int)$row['salaire_brut'];
+        $salaire = (int)$row['salaire_brute'];
         if($salaire > 0 && $salaire <= 550000){
             $cota = (550000 * 23)/100;
             $soumis = 550000;
@@ -41,7 +41,7 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
             'jour_declare' => $row['jour_declare'],
             'periode_debut' => $row['periode_debut'],
             'periode_fin' => $row['periode_fin'],
-            'salaire_brut' => $row['salaire_brut'],
+            'salaire_brute' => $row['salaire_brute'],
             'salaire_soumis' => $soumis,
             'montant_cotise' => $cota,
 
@@ -52,8 +52,9 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
     {
         $emp_id = Employer::pluck('matricule')->toArray();
         return [
-            'salaire_brut' => 'required',
             'employer_matricule' => ['required',Rule::in($emp_id)],
+            'salaire_brute' => 'required',
+
             // 'email' => Rule::in(['patrick@maatwebsite.nl']),
         ];
     }

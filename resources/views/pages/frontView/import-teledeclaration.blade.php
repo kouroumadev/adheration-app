@@ -91,7 +91,7 @@
 
                                     <td>{{ $dem['employers']['nom_employer'] }}</td>
                                     <td>{{ $dem['employers']['prenom_employer']}}</td>
-                                    <td>{{ $dem['salaire_brut']}} </td>
+                                    <td>{{ $dem['salaire_brute']}} </td>
                                     <td>{{ $dem['salaire_soumis'] }}</td>
                                     <td>{{ $dem['montant_cotise']}}</td>
                                     <td>{{ $dem['periode_debut']}}</td>
