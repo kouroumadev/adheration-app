@@ -65,6 +65,13 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
      */
     public function customValidationAttributes()
     {
-        return ['employer_matricule' => 'Employer Matricule'];
+        return [
+            'employer_matricule' => 'Employer Matricule',
+            'parent_id' => 'Parent ID',
+            'jour_declare' => 'Jour Declare',
+            'periode_debut' => 'Periode Debut',
+            'periode_fin' => 'Periode Fin',
+            'salaire_brute' => 'Salaire Brute',
+        ];
     }
 }
