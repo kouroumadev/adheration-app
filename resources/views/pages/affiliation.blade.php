@@ -112,14 +112,22 @@
         <h4 class="text-center mb-4 font-weight-bold">Identification Entreprise</h4>
         <div class="card-body">
             <div class="row">
-                <div class=" col form-file mb-3">
-                    <label for="formFile" class="form-label">Sigle</label>
-                    <input class="form-control" type="file" id="sigle" name="sigle">
+                <div class="col-6">
+                    <div class=" col form-file mb-3">
+                        <label for="formFile" class="form-label">Logo</label>
+                        <input class="form-control" type="file" onchange="chargeLogo(this)" id="sigle" name="sigle">
 
-                    <span role="alert" class="text-danger error-msg" >
-                        Le champs sigle est vide
-                    </span>
+                        <span role="alert" class="text-danger error-msg" >
+                            Le champs sigle est vide
+                        </span>
+                    </div>
                 </div>
+                <div class="col-6">
+                    <div class="row mb-3 d-none" id="logo_wrapper" style="width: 150px; height:150px; margin:auto; ">
+                        <img src="" alt="" srcset="" id="logo_disp" style="border-radius: 50%">
+                    </div>
+                </div>
+
             </div>
             <div class="row">
                 {{-- <div class=" col mb-3">
@@ -137,16 +145,6 @@
                         Le champs RCCM est vide
                     </span>
                 </div>
-                <div class=" col form-file mb-3">
-                    <label for="formFile" class="form-label">copy RCCM</label>
-                    <input class="form-control" type="file" id="rccm_file" name="rccm_file">
-
-                    <span role="alert" class="text-danger error-msg" >
-                        Le champs RCCM copy est vide
-                    </span>
-                </div>
-            </div>
-            <div class="row">
                 <div class=" col form-floating mb-3">
                     <input type="text" class="form-control" name="num_impot"
 
@@ -154,6 +152,17 @@
                     <label for="floatingTextarea2">Numéro direction Nationale des Impots</label>
                     <span role="alert" class="text-danger error-msg" >
                         Le champs Numéro direction Nationale des Impots est vide
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class=" col form-file mb-3">
+                    <label for="formFile" class="form-label">copy RCCM</label>
+                    <input class="form-control" type="file" id="rccm_file" name="rccm_file">
+
+                    <span role="alert" class="text-danger error-msg" >
+                        Le champs RCCM copy est vide
                     </span>
                 </div>
                 <div class=" col form-file mb-3">
@@ -574,4 +583,16 @@
 </form>
 </section>
 
+<script>
+    function chargeLogo(input){
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$('#logo_disp').attr('src',e.target.result).width(100).height(100);
+                $("#logo_wrapper").removeClass('d-none');
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
 @endsection
