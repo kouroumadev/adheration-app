@@ -26,13 +26,13 @@
                                         <div class="card-body">
                                           <h5 class="card-title text-white">Important !</h5>
                                           <p class="card-text">
-                                            Avant d'inserer la liste de vos employers, veuillez telecharger le fichier teste ci-dessous pour etre en conformiter
-                                            avec les regles du fichier des employers.
+                                            Avant d'inserer la liste des Immatriculations, veuillez telecharger le fichier échantillon ci-dessous pour être en conformité
+                                            avec les règles du fichier des Immatriculations.
                                           </p>
                                           <button type="button" class="btn btn-primary">
                                             <a
                                                 href='/asset/employee_list.xlsx' target="_blank"
-                                            style="color:#fff;">Telecharger le fichier teste</a>
+                                            style="color:#fff;">Telecharger le fichier échantillon</a>
 
                                         </button>
                                         </div>
@@ -46,7 +46,7 @@
                                         </div>
 
                                         <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Enregister</button>
+                                            <button type="submit" class="btn btn-primary">Importer</button>
                                         </div>
                                     </form>
                                 </div>

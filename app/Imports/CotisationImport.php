@@ -58,4 +58,13 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
             // 'email' => Rule::in(['patrick@maatwebsite.nl']),
         ];
     }
+
+
+    /**
+     * @return array
+     */
+    public function customValidationAttributes()
+    {
+        return ['employer_matricule' => 'Employer Matricule'];
+    }
 }
