@@ -94,6 +94,7 @@ class EmployeesImport implements ToModel, WithValidation, WithHeadingRow
             'salaire_brut' => 'Salaire Brut',
             'emploi_occupe' => 'Emploi Occupe',
             'liberer' => 'Liberer',
+            'type_employer' => 'Type Employer',
         ];
     }
 }

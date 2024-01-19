@@ -126,7 +126,7 @@ class AffiliationController extends Controller
         }
     }
     public function AffStore(Request $request){
-        // dd($request->i_fiscale);
+        // dd($request->all());
         $categorie = '';
         $code = Str::upper(Str::random(13));
         $existe = Entreprise::where('raison_sociale',$request->raison_sociale)->get();
@@ -221,7 +221,7 @@ class AffiliationController extends Controller
              $representant->prenom =  $request->prenom;
              $representant->nom =  $request->nom;
              $representant->document_identite =  $request->document_identite;
-                // 'ville_representant =  $request->ville_representant;
+            // $ville_representant =  $request->ville_representant;
              $representant->email =  $request->email;
              $representant->telephone_representant = $request->telephone_representant;
              $representant->adresse_representant = $request->adresse_representant;
