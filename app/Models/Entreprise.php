@@ -11,13 +11,22 @@ class Entreprise extends Model
 
     protected $fillable = [
             'id',
-            'num_agrement' ,
+            'n_immatriculation',
+            'num_agrement',
             'raison_sociale',
-            'num_impot' ,
+            'num_impot',
             'activite_principale',
             'quartier_entreprise',
             'commune_entreprise',
             'ville_entreprise',
-            'boite_postale'
+            'boite_postale',
+            'nombre_emp',
+            'effectif_homme',
+            'effectif_femme',
+            'sigle',
+            'categorie',
+            'rccm_file',
+            'num_impot_file',
+            'adresse'
     ];
 }

@@ -9,5 +9,5 @@ class Sequence extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id','code'];
+    protected $fillable = ['id','code','status'];
 }

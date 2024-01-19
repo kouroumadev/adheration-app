@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sequences', function (Blueprint $table) {
             $table->id();
             $table->integer('code');
+            $table->integer('status');
             $table->timestamps();
         });
     }
