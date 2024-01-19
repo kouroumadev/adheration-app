@@ -171,24 +171,28 @@ class AffiliationController extends Controller
             Alert::toast('Ce Nom d\'entreprise a été déclaré veillez changer le nom','error');
             return redirect()->back();
         } else {
-            $entreprise = Entreprise::insertGetId([
-                'num_agrement' => $request->num_agrement,
-                'raison_sociale' => $request->raison_sociale,
-                'num_impot' => $request->num_impot,
-                'activite_principale' => $request->activite_principale,
-                'quartier_entreprise' => $request->quartier_entreprise,
-                'commune_entreprise' => $request->commune_entreprise,
-                 'ville_entreprise' =>$request->ville_entreprise,
-                 'nombre_emp' =>$request->nombre_emp,
-                // 'effectif_homme' =>$request->effectif_homme,
-                // 'effectif_femme' =>$request->effectif_femme,
-                'boite_postale' =>$request->boite_postale,
-                'categorie' =>$categorie,
-                'sigle' =>$save_img,
-                'rccm_file' =>$rccm_path,
-                'num_impot_file' =>$ndni_path,
-                'created_at' => Carbon::now()
-            ]);
+            $entreprise = new Entreprise();
+
+                 $entreprise->num_agrement = $request->num_agrement;
+                 $entreprise->raison_sociale = $request->raison_sociale;
+                 $entreprise->num_impot = $request->num_impot;
+                 $entreprise->activite_principale = $request->activite_principale;
+                 $entreprise->quartier_entreprise = $request->quartier_entreprise;
+                 $entreprise->commune_entreprise = $request->commune_entreprise;
+                  $entreprise->ville_entreprise =$request->ville_entreprise;
+                  $entreprise->nombre_emp =$request->nombre_emp;
+                // efectif_homme =$request->effectif_homme;
+                // efectif_femme =$request->effectif_femme;
+                 $entreprise->boite_postale =$request->boite_postale;
+                 $entreprise->categorie =$categorie;
+                 $entreprise->sigle =$save_img;
+                 $entreprise->rccm_file =$rccm_path;
+                 $entreprise->num_impot_file =$ndni_path;
+
+                 $entreprise->save();
+
+                 $entreprise_id = $entreprise->id;
+
             // // dd($entreprise);
             // ////// Representant store
             $representant = new Representant();
@@ -199,7 +203,7 @@ class AffiliationController extends Controller
              $representant->email =  $request->email;
              $representant->telephone_representant = $request->telephone_representant;
              $representant->adresse_representant = $request->adresse_representant;
-             $representant->entreprise_id =  $entreprise;
+             $representant->entreprise_id =  $entreprise_id;
             //  $representant->created_at =  Carbon::now();
              $representant->save();
              $representant_id = $representant->id;
@@ -219,8 +223,8 @@ class AffiliationController extends Controller
             // // dd($representant);
             // ///// Demande store
             $demande = Demande::create([
-                'representant_id' => $representant,
-                'entreprise_id' => $entreprise,
+                'representant_id' => $representant_id,
+                'entreprise_id' => $entreprise_id,
                 'type_demande' => "affiliation",
                 'code_demande' => $code,
 
