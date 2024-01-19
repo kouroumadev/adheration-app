@@ -26,13 +26,13 @@
                                         <div class="card-body">
                                           <h5 class="card-title text-white">Important !</h5>
                                           <p class="card-text">
-                                            Avant d'inserer la liste des cotisations, veuillez telecharger le fichier teste ci-dessous pour etre en conformiter
-                                            avec les regles du fichier des cotisations.
+                                            Avant d'inserer la liste des cotisations, veuillez telecharger le fichier échantillon ci-dessous pour être en conformité
+                                            avec les règles du fichier des cotisations.
                                           </p>
                                           <button type="button" class="btn btn-primary">
                                             <a
-                                                href='/asset/employee_list.xlsx' target="_blank"
-                                            style="color:#fff;">Telecharger le fichier teste</a>
+                                                href='/asset/Immatriculation_list.xlsx' target="_blank"
+                                            style="color:#fff;">Telecharger le fichier échantillon</a>
 
                                         </button>
                                         </div>

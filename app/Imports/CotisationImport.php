@@ -58,4 +58,20 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
             // 'email' => Rule::in(['patrick@maatwebsite.nl']),
         ];
     }
+
+
+    /**
+     * @return array
+     */
+    public function customValidationAttributes()
+    {
+        return [
+            'employer_matricule' => 'Employer Matricule',
+            'parent_id' => 'Parent ID',
+            'jour_declare' => 'Jour Declare',
+            'periode_debut' => 'Periode Debut',
+            'periode_fin' => 'Periode Fin',
+            'salaire_brute' => 'Salaire Brute',
+        ];
+    }
 }

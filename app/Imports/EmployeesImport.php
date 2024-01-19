@@ -51,11 +51,43 @@ class EmployeesImport implements ToModel, WithValidation, WithHeadingRow
         return [
             'nom_employer' => 'required',
             'prenom_employer' => 'required',
+            'matricule' => 'required',
         ];
     }
 
-    //  public function headingRow(): int
-    //  {
-    //      return 2;
-    //  }
+    /**
+     * @return array
+     */
+    public function customValidationAttributes()
+    {
+        return [
+            'nom_employer' => 'Nom Employer',
+            'prenom_employer' => 'Prenom Employer',
+            'sexe_employer' => 'Sexe Employer',
+            'matricule' => 'Matricule',
+            'entreprise_id' => 'Entreprise Id',
+            'adresse_employer' => 'Adresse Employer',
+            'email_employer' => 'Email Employer',
+            'n_immatriculation' => 'N Immatriculation',
+            'date_naissance_employer' => 'Date Naissance Employer',
+            'lieu_naissance_employer' => 'Lieu Naissance Employer',
+            'nationalite' => 'Nationalite',
+            'prenom_pere' => 'Prenom Pere',
+            'prenom_mere' => 'Prenom Mere',
+            'nom_pere' => 'Nom Pere',
+            'nom_mere' => 'Nom Mere',
+            'situation_matrimoniale' => 'Situation Matrimoniale',
+            'profession' => 'Profession',
+            'n_cin' => 'N Cin',
+            'date_del_cin' => 'Date Del Cin',
+            'lieu_del_cin' => 'Lieu Del Cin',
+            'n_acte_naissance' => 'N Acte Naissance',
+            'date_del_acte_naissance' => 'Date Del Acte Naissance',
+            'lieu_del_acte_naissance' => 'Dieu Del Acte Naissance',
+            'etat_employer' => 'Etat Employer',
+            'date_embauche' => 'Date Embauche',
+            'date_immatriculation' => 'Date Immatriculation',
+            'liberer' => 'Liberer',
+        ];
+    }
 }
