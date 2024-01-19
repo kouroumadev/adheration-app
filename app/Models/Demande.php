@@ -12,11 +12,10 @@ class Demande extends Model
     protected $fillable = [
         'id',
         'entreprise_id',
-            'representant_id',
-            'date_demande',
-            'type_demande',
-           'code_demande',
-            'status_demande',
+        'representant_id',
+        'type_demande',
+        'code_demande',
+        'status_demande'
     ];
 
     public function entreprises(){

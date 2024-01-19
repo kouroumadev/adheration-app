@@ -12,14 +12,12 @@ class Representant extends Model
     protected $fillable = [
         'id',
         'prenom' ,
-        'raison_sociale',
+        'entreprise_id',
         'nom',
         'document_identite',
         'email',
-        'commune_entreprise',
         'telephone_representant',
-        'adresse_representant' ,
-
-
-];
+        'adresse_representant',
+        'ville_reprsentant'
+    ];
 }
