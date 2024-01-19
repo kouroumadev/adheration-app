@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class cotisation extends Model
+class Cotisation extends Model
 {
     use HasFactory;
 
@@ -33,6 +33,6 @@ class cotisation extends Model
     }
 
     public function children(){
-        return $this->hasMany(cotisation::class,'parent_id')->with(['children']);
+        return $this->hasMany(Cotisation::class,'parent_id')->with(['children']);
     }
 }
