@@ -24,7 +24,7 @@ return new class extends Migration
              $table->string('n_immatriculation')->nullable();
              $table->string('date_naissance_employer')->nullable();
              $table->string('lieu_naissance_employer')->nullable();
-             $table->string('pays_naissance_employer')->nullable();
+            //  $table->string('pays_naissance_employer')->nullable();
              $table->string('nationalite')->nullable();
              $table->string('ville_employer')->nullable();
              $table->string('quartier_employer')->nullable();
