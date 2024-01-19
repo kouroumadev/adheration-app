@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('entreprise_id');
-            $table->bigInteger('representantid');
-            $table->date('date_demande');
+            $table->foreignId('entreprise_id')->constrained();
+            $table->foreignId('representant_id')->constrained();
             $table->string('type_demande');
             $table->string('code_demande');
-            $table->string('status_demande');
+            $table->string('status_demande')->default(0);
             $table->timestamps();
         });
     }

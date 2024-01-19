@@ -13,12 +13,23 @@ return new class extends Migration
     {
         Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
+            $table->string('n_immatriculation')->nullable();
             $table->string('raison_sociale');
-            $table->string('forme_juridique');
-            $table->string('registre_commerce');
-            $table->string('patente');
-            $table->string('adresse');
+            $table->string('num_agrement');
+            $table->string('num_impot');
+            $table->string('activite_principale');
+            $table->string('quartier_entreprise');
+            $table->string('commune_entreprise');
+            $table->string('ville_entreprise');
             $table->string('nombre_emp');
+            $table->string('effectif_homme');
+            $table->string('effectif_femme');
+            $table->string('boite_postale');
+            $table->string('sigle');
+            $table->string('categorie');
+            $table->string('rccm_file');
+            $table->string('num_import_file');
+            $table->string('adresse');
             $table->timestamps();
         });
     }

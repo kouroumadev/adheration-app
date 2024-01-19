@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('representants', function (Blueprint $table) {
             $table->id();
+            $table->string('document_identite');
             $table->string('prenom');
             $table->string('nom');
-            $table->string('ville');
-            $table->string('code_postal');
-            $table->string('telephone');
+            $table->string('ville_reprsentant');
+            $table->string('telephone_representant');
             $table->string('email');
-            $table->string('adresse');
-            $table->bigInteger('entreprise_id');
+            $table->string('adresse_representant');
+            $table->foreignId('entreprise_id')->constrained();
             $table->timestamps();
         });
     }
