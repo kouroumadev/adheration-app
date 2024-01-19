@@ -429,107 +429,109 @@
     </form>
     </div>
   </div>
-    </section>
+</section>
 
     <script>
+
+
         $(document).ready(function(){
 
-            $("#VerifierAssureSubmit").submit(function(e){
-                e.preventDefault();
-                var n_affiliation = $('#n_affiliation').val();
-                // alert(n_affiliation)
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('verification-assure') }}",
-                    dataType: 'json',
-                    data:{n_affiliation:n_affiliation},
-                    success: function(data) {
-                        if (data === "error") {
-                            Swal.fire({
-                            title: 'Error!',
-                            text: 'Cet Employé n\'est pas libre',
-                            icon: 'error',
+            // $("#VerifierAssureSubmit").submit(function(e){
+            //     e.preventDefault();
+            //     var n_affiliation = $('#n_affiliation').val();
+            //     // alert(n_affiliation)
+            //     $.ajax({
+            //         type: 'GET',
+            //         url: "{{ route('verification-assure') }}",
+            //         dataType: 'json',
+            //         data:{n_affiliation:n_affiliation},
+            //         success: function(data) {
+            //             if (data === "error") {
+            //                 Swal.fire({
+            //                 title: 'Error!',
+            //                 text: 'Cet Employé n\'est pas libre',
+            //                 icon: 'error',
 
-                            })
+            //                 })
 
-                        }
-                        else if (data === "no employer") {
-                            Swal.fire({
-                            title: 'Error!',
-                            text: 'Ce Numero d\'immatriculation n\'esiste pas',
-                            icon: 'error',
+            //             }
+            //             else if (data === "no employer") {
+            //                 Swal.fire({
+            //                 title: 'Error!',
+            //                 text: 'Ce Numero d\'immatriculation n\'esiste pas',
+            //                 icon: 'error',
 
-                            })
-                        }
-                        else{
-                            $("#detailcontainer").removeClass('d-none');
-                            $("#e_pre_disp").text(data[0].prenom_employer);
-                            $("#e_nom_disp").text(data[0].nom_employer);
-                            $("#e_mat_disp").text(data[0].matricule);
-                            $("#e_n_immatriculation_disp").text(data[0].n_immatriculation);
-                            $("#e_dob_disp").text(data[0].date_naissance_employer);
-                            $("#e_dern_emp_disp").text(data[0].entreprises.raison_sociale);
-                            $("#employer_id").val(data[0].id);
-                            // $("#employeur_id").val(data[0].entreprise_id);
-                            // console.log(data[0].entreprise_id);
-                        }
+            //                 })
+            //             }
+            //             else{
+            //                 $("#detailcontainer").removeClass('d-none');
+            //                 $("#e_pre_disp").text(data[0].prenom_employer);
+            //                 $("#e_nom_disp").text(data[0].nom_employer);
+            //                 $("#e_mat_disp").text(data[0].matricule);
+            //                 $("#e_n_immatriculation_disp").text(data[0].n_immatriculation);
+            //                 $("#e_dob_disp").text(data[0].date_naissance_employer);
+            //                 $("#e_dern_emp_disp").text(data[0].entreprises.raison_sociale);
+            //                 $("#employer_id").val(data[0].id);
+            //                 // $("#employeur_id").val(data[0].entreprise_id);
+            //                 // console.log(data[0].entreprise_id);
+            //             }
 
 
-                    }
-                });
-            });
+            //         }
+            //     });
+            // });
 
-            $("#changeEmployeurSubmit").submit(function(e){
-                e.preventDefault();
-                var employer = $("#employer_id").val();
-                var matriculeGet = $("#matriculeGet").val();
-                // console.log(matriculeGet);
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('change-employeur') }}",
-                    dataType: 'json',
-                    data:{employer:employer,matricule:matriculeGet},
-                    beforeSend: function(){
-                        $("#loader").show();
-                    },
-                    complete: function(){
-                        $("#loader").hide();
-                    },
-                    success: function(data) {
-                        if (data == "exist") {
-                            Swal.fire({
-                            title: 'Error!',
-                            text: 'Ce Numero Matricule existe deja',
-                            icon: 'error',
+            // $("#changeEmployeurSubmit").submit(function(e){
+            //     e.preventDefault();
+            //     var employer = $("#employer_id").val();
+            //     var matriculeGet = $("#matriculeGet").val();
+            //     // console.log(matriculeGet);
+            //     $.ajax({
+            //         type: 'GET',
+            //         url: "{{ route('change-employeur') }}",
+            //         dataType: 'json',
+            //         data:{employer:employer,matricule:matriculeGet},
+            //         beforeSend: function(){
+            //             $("#loader").show();
+            //         },
+            //         complete: function(){
+            //             $("#loader").hide();
+            //         },
+            //         success: function(data) {
+            //             if (data == "exist") {
+            //                 Swal.fire({
+            //                 title: 'Error!',
+            //                 text: 'Ce Numero Matricule existe deja',
+            //                 icon: 'error',
 
-                            })
-                        }
-                        else{
-                            Swal.fire({
-                            title: 'Succes!',
-                            text: 'L\'employeur à été changé avec succès',
-                            icon: 'success',
+            //                 })
+            //             }
+            //             else{
+            //                 Swal.fire({
+            //                 title: 'Succes!',
+            //                 text: 'L\'employeur à été changé avec succès',
+            //                 icon: 'success',
 
-                            })
+            //                 })
 
-                            Swal.fire({
-                            title: "Succes!",
-                            text: "L\'employeur à été changé avec succès",
-                            icon: "success",
+            //                 Swal.fire({
+            //                 title: "Succes!",
+            //                 text: "L\'employeur à été changé avec succès",
+            //                 icon: "success",
 
-                            confirmButtonColor: "#3085d6",
+            //                 confirmButtonColor: "#3085d6",
 
-                            confirmButtonText: "OK"
-                            }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "immatriculation";
-                            }
-                            });
+            //                 confirmButtonText: "OK"
+            //                 }).then((result) => {
+            //                 if (result.isConfirmed) {
+            //                     window.location.href = "immatriculation";
+            //                 }
+            //                 });
 
-                        }
-                    }
-                });
-            });
+            //             }
+            //         }
+            //     });
+            // });
 
 
         });

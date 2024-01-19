@@ -63,6 +63,9 @@ Route::middleware([
 
     Route::get('/demande-non-approuve', [AdminController::class, 'DemandeNonApprouve'])->name('demande-non-approuve');
     Route::get('/demande-approuve', [AdminController::class, 'DemandeApprouve'])->name('demande-approuve');
+    Route::get('/demande-voir-info/{id}', [AdminController::class, 'DemandeVoirInfo'])->name('demande-voir-info');
+    Route::get('/doc-view-rccm', [AdminController::class, 'DocEntrepriseRccm'])->name('doc-view-rccm');
+    Route::get('/doc-view-impot', [AdminController::class, 'DocEntrepriseImpot'])->name('doc-view-impot');
     Route::get('/get-num-immatriculation', [AdminController::class, 'GetNumImmatriculation'])->name('get-num-immatriculation');
     Route::post('/ajout-num-aff', [AdminController::class, 'AjoutNumAff'])->name('ajout-num-aff');
     Route::get('/get-info', [AdminController::class, 'GetInfo'])->name('get-info');
@@ -82,6 +85,7 @@ Route::middleware([
     Route::get('/verification-assure', [TeleDeclController::class, 'VerifAssure'])->name('verification-assure');
     Route::get('/liberer-employer', [TeleDeclController::class, 'LibererEmployer'])->name('liberer-employer');
     Route::get('/change-employeur', [TeleDeclController::class, 'ChangeEmployeur'])->name('change-employeur');
+    Route::post('/change-matricule', [TeleDeclController::class, 'ChangeMatricule'])->name('change-matricule');
     Route::get('/mes-cotisations', [TeleDeclController::class, 'MesCotisations'])->name('mes-cotisations');
 
     //////// Route employer ///////////
@@ -109,6 +113,7 @@ Route::get('/back-office', [AffiliationController::class, 'BackOfficePage'])->na
 //////////// Admin Routes ////////////////
 Route::post('/first_login_password', [AdminController::class, 'FirstLogPasse'])->name('first_login_password');
 Route::post('/login-ajax', [AdminController::class, 'LoginAjax'])->name('login-ajax');
+Route::post('/login-ajax-back-office', [AdminController::class, 'LoginAjaxBackOffice'])->name('login-ajax-back-office');
 
 /////////// AFFILIATION ROUTES ////////////
 Route::get('/affiliation', [AffiliationController::class, 'Affiliation'])->name('affiliation');

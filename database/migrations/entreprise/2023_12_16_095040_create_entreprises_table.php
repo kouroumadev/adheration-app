@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('sigle');
             $table->string('categorie');
             $table->string('rccm_file');
-            $table->string('num_import_file');
+            $table->string('num_impot_file');
             $table->string('adresse');
             $table->timestamps();
         });

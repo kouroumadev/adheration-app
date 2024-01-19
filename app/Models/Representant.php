@@ -18,6 +18,6 @@ class Representant extends Model
         'email',
         'telephone_representant',
         'adresse_representant',
-        'ville_reprsentant'
+        'ville_representant'
     ];
 }

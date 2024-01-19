@@ -1,38 +1,193 @@
-@extends('pages.master')
-@section('content')
+<!DOCTYPE html>
+<html lang="fr">
 
-<section class="ftco-section" style="margin-top: 150px">
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-    <div class="card" style="width: 70%; margin: auto; border:none">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="{{ asset('images/image-home.png') }}" width="80%" height="80%" alt="" srcset="">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Connexion</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <!-- Favicons -->
+  <link href="{{ asset('images/Logocnss.png') }}" rel="icon">
+  <link href="{{ asset('images/Logocnss.png') }}" rel="apple-touch-icon">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ asset('back/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('back/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{ asset('back/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('back/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+  <link href="{{ asset('back/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+  <link href="{{ asset('back/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+  <link href="{{ asset('back/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ asset('back/assets/css/style.css')}}" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script> --}}
+
+
+</head>
+<style>
+    .logo img {
+        max-height: 200px;
+
+    }
+</style>
+<body>
+
+  <main>
+    <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="logo  justify-content-center py-4">
+                <div class=" d-flex align-items-center w-auto" style="position: relative; left:70px">
+                  <img src="{{ asset('images/Logocnss.png') }}" width="150" height="150" alt="" >
+
+                </div>
+                <H4 class="text-center align-items-center w-auto">CAISSE NATIONALE DE LA SECURITE SOCIALE</H4>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Bienvenue !</h5>
+                    <p class="text-center small">Connectez vous a votre compte</p>
+                  </div>
+                    {{-- @error('login') --}}
+                        <div class="alert alert-danger d-none" id="error-alert">Incorrect email ou mot de passe</div>
+                    {{-- @enderror --}}
+                  <form class="row g-3 needs-validation"  novalidate id="login-backOffice">
+                        @csrf
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">E-mail</label>
+                      <div class="input-group has-validation">
+                        {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
+                        <input type="email" name="email" class="form-control" id="email" required>
+                        <div class="invalid-feedback">Invalide email.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Mot de passe</label>
+                      <input type="password" name="password" class="form-control" id="password" required>
+                      <div class="invalid-feedback">Invalide mot de passe!</div>
+                    </div>
+
+                    <div class="col-12">
+
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-success w-100"  type="submit">Connexion</button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0"> Mot de passe Oublié?<a href="#"> Clickez ici .</a></p>
+                    </div>
+                  </form>
+
+                </div>
+
+                <div>
+                    {{-- <img src="{{ asset('images/Logocnss.png') }}" width="100%" height="500" style="position: absolute; top:-50px;opacity: 0.1; z-index:-1"> --}}
+                </div>
+              </div>
+
+              <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+
+              </div>
 
             </div>
-            <div class="col-md-6">
-                <h4 class="text-center mb-4 font-weight-bold">Bienvenue !</h4>
-                <h5 class="text-center mb-4 ">Connectez vous a votre compte</h5>
-                @error('login')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">Email</label>
-                    <input type="email"  name="login" :value="old('login')" required class="form-control" id="login" placeholder="login">
-                  </div>
-                  <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Mot de passe</label>
-                    <input type="password" name="password" required class="form-control" id="password" placeholder="Mot de passe">
-                  </div>
-
-                  <div class="mb-3 w-50">
-                        <button class="btn btn-success">Connecter</button>
-                  </div>
-            </div>
-
+          </div>
         </div>
 
+      </section>
+
     </div>
-    </form>
-</section>
-@endsection
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('back/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+  <script src="{{ asset('back/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('back/assets/vendor/chart.js/chart.umd.js')}}"></script>
+  <script src="{{ asset('back/assets/vendor/echarts/echarts.min.js')}}"></script>
+  <script src="{{ asset('back/assets/vendor/quill/quill.min.js')}}"></script>
+  <script src="{{ asset('back/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+  <script src="{{ asset('back/assets/vendor/tinymce/tinymce.min.js')}}"></script>
+  <script src="{{ asset('back/assets/vendor/php-email-form/validate.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ asset('back/assets/js/main.js')}}"></script>
+
+  <script>
+    // setting CSRF token in head section //
+//  location.reload();
+
+       $(document).ready(function(){
+            $("#login-backOffice").submit(function(e){
+                e.preventDefault();
+
+                if ($("#email").val() == '') {
+                    return false;
+                } else if($("#password").val() == ''){
+
+                }
+                else {
+                    var data = $("#login-backOffice").serialize();
+
+                    $.ajaxSetup({
+                        headers: ({
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        })
+                    })
+
+                    $.ajax({
+                        type:'POST',
+                        url: "{{ route('login-ajax-back-office') }}",
+                        data: 'json',
+                        data:data,
+                        success: function(data){
+                            // console.log("DATA ",data);
+                            if (data === 'error') {
+                                $("#error-alert").removeClass('d-none');
+                            }
+                            else{
+                                // console.log("DATA ",data);
+                                window.location.href ="dashboard";
+                            }
+                        }
+                    });
+                }
+
+            })
+       })
+
+</script>
+
+
+</body>
+
+</html>
+
+
+
+s

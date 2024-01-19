@@ -347,77 +347,77 @@
 
 <script>
     $(document).ready(function(){
-        $('#submitEmployerBtn').submit(function(e){
-            e.preventDefault();
-            // let url = $(this).attr('action');
-            // alert(url);
-            var nom_employer = $('#nom_employer').val(); var matricule = $('#matricule').val();
-            var prenom_employer = $('#prenom_employer').val(); var sexe_employer = $('#sexe_employer').val();
-            var email_employer = $('#email_employer').val(); var date_embauche = $('#date_embauche').val();
-            var situation_matrimoniale = $('#situation_matrimoniale').val(); var nationalite = $('#nationalite').val();
-            var date_naissance_employer = $('#date_naissance_employer').val(); var lieu_naissance_employer = $('#lieu_naissance_employer').val();
-            var etat_employer = $('#etat_employer').val(); var prenom_pere = $('#prenom_pere').val();
-            var nom_pere = $('#nom_pere').val(); var entreprise_id = $('#entreprise_id').val();
-            var nom_mere = $('#nom_mere').val(); var prenom_mere = $('#prenom_mere').val();
-            var profession = $('#profession').val(); var n_cin = $('#n_cin').val();
-            var date_del_cin = $('#date_del_cin').val(); var lieu_del_cin = $('#lieu_del_cin').val();
-            var n_acte_naissance = $('#n_acte_naissance').val(); var date_del_acte_naissance = $('#date_del_acte_naissance').val();
-            var lieu_del_acte_naissance = $('#lieu_del_acte_naissance').val(); var adresse_employer = $('#adresse_employer').val();
+        // $('#submitEmployerBtn').submit(function(e){
+        //     e.preventDefault();
+        //     // let url = $(this).attr('action');
+        //     // alert(url);
+        //     var nom_employer = $('#nom_employer').val(); var matricule = $('#matricule').val();
+        //     var prenom_employer = $('#prenom_employer').val(); var sexe_employer = $('#sexe_employer').val();
+        //     var email_employer = $('#email_employer').val(); var date_embauche = $('#date_embauche').val();
+        //     var situation_matrimoniale = $('#situation_matrimoniale').val(); var nationalite = $('#nationalite').val();
+        //     var date_naissance_employer = $('#date_naissance_employer').val(); var lieu_naissance_employer = $('#lieu_naissance_employer').val();
+        //     var etat_employer = $('#etat_employer').val(); var prenom_pere = $('#prenom_pere').val();
+        //     var nom_pere = $('#nom_pere').val(); var entreprise_id = $('#entreprise_id').val();
+        //     var nom_mere = $('#nom_mere').val(); var prenom_mere = $('#prenom_mere').val();
+        //     var profession = $('#profession').val(); var n_cin = $('#n_cin').val();
+        //     var date_del_cin = $('#date_del_cin').val(); var lieu_del_cin = $('#lieu_del_cin').val();
+        //     var n_acte_naissance = $('#n_acte_naissance').val(); var date_del_acte_naissance = $('#date_del_acte_naissance').val();
+        //     var lieu_del_acte_naissance = $('#lieu_del_acte_naissance').val(); var adresse_employer = $('#adresse_employer').val();
 
-            //    alert(prenom_employer);
+        //     //    alert(prenom_employer);
 
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('ajout-employer') }}",
-                dataType: 'json',
-                data:{nom_employer:nom_employer, matricule:matricule, prenom_employer:prenom_employer,
-                    sexe_employer:sexe_employer, email_employer:email_employer, date_embauche:date_embauche,
-                    situation_matrimoniale:situation_matrimoniale, nationalite:nationalite, date_naissance_employer:date_naissance_employer,
-                    lieu_naissance_employer:lieu_naissance_employer, etat_employer:etat_employer, prenom_pere:prenom_pere,
-                    nom_pere:nom_pere, nom_mere:nom_mere, prenom_mere:prenom_mere, nom_pere:nom_pere, nom_mere:nom_mere, prenom_mere:prenom_mere,
-                    profession:profession, n_cin:n_cin, prenom_mere:prenom_mere, date_del_cin:date_del_cin, lieu_del_cin:lieu_del_cin, n_acte_naissance:n_acte_naissance,
-                    date_del_acte_naissance:date_del_acte_naissance, lieu_del_acte_naissance:lieu_del_acte_naissance, adresse_employer:adresse_employer,
-                    entreprise_id:entreprise_id},
-                beforeSend: function(){
-                        $("#loader").show();
-                },
-                    complete: function(){
-                        $("#loader").hide();
-                },
-                success: function(data) {
-                     console.log(data);
-                    if (data === "success") {
-                        // Swal.fire({
-                        //     title: 'Succés!',
-                        //     text: 'Cet Employé a été  déclaré(e)',
-                        //     icon: 'success',
-                        // });
-                        // window.location.href = "immatriculation";
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: "{{ route('ajout-employer') }}",
+        //         dataType: 'json',
+        //         data:{nom_employer:nom_employer, matricule:matricule, prenom_employer:prenom_employer,
+        //             sexe_employer:sexe_employer, email_employer:email_employer, date_embauche:date_embauche,
+        //             situation_matrimoniale:situation_matrimoniale, nationalite:nationalite, date_naissance_employer:date_naissance_employer,
+        //             lieu_naissance_employer:lieu_naissance_employer, etat_employer:etat_employer, prenom_pere:prenom_pere,
+        //             nom_pere:nom_pere, nom_mere:nom_mere, prenom_mere:prenom_mere, nom_pere:nom_pere, nom_mere:nom_mere, prenom_mere:prenom_mere,
+        //             profession:profession, n_cin:n_cin, prenom_mere:prenom_mere, date_del_cin:date_del_cin, lieu_del_cin:lieu_del_cin, n_acte_naissance:n_acte_naissance,
+        //             date_del_acte_naissance:date_del_acte_naissance, lieu_del_acte_naissance:lieu_del_acte_naissance, adresse_employer:adresse_employer,
+        //             entreprise_id:entreprise_id},
+        //         beforeSend: function(){
+        //                 $("#loader").show();
+        //         },
+        //             complete: function(){
+        //                 $("#loader").hide();
+        //         },
+        //         success: function(data) {
+        //              console.log(data);
+        //             if (data === "success") {
+        //                 // Swal.fire({
+        //                 //     title: 'Succés!',
+        //                 //     text: 'Cet Employé a été  déclaré(e)',
+        //                 //     icon: 'success',
+        //                 // });
+        //                 // window.location.href = "immatriculation";
 
-                        Swal.fire({
-                        title: "Succés!",
-                        text: "Cet Employé a été  déclaré(e)",
-                        icon: "success",
+        //                 Swal.fire({
+        //                 title: "Succés!",
+        //                 text: "Cet Employé a été  déclaré(e)",
+        //                 icon: "success",
 
-                        confirmButtonColor: "#3085d6",
+        //                 confirmButtonColor: "#3085d6",
 
-                        confirmButtonText: "OK"
-                        }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "immatriculation";
-                        }
-                        });
-                    }
-                    else{
-                        Swal.fire({
-                            title: 'Erreur!',
-                            text: 'Cet Employé a été déjà déclaré(e)',
-                            icon: 'error',
-                        });
-                    }
-                }
-            })
-        });
+        //                 confirmButtonText: "OK"
+        //                 }).then((result) => {
+        //                 if (result.isConfirmed) {
+        //                     window.location.href = "immatriculation";
+        //                 }
+        //                 });
+        //             }
+        //             else{
+        //                 Swal.fire({
+        //                     title: 'Erreur!',
+        //                     text: 'Cet Employé a été déjà déclaré(e)',
+        //                     icon: 'error',
+        //                 });
+        //             }
+        //         }
+        //     })
+        // });
     });
 
     // //// Getting Employer info ////

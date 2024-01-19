@@ -127,26 +127,25 @@ class AffiliationController extends Controller
     }
     public function AffStore(Request $request){
         // dd($request->i_fiscale);
-        $categorie = '';
+        $categorie ='';
         $code = Str::upper(Str::random(13));
         $existe = Entreprise::where('raison_sociale',$request->raison_sociale)->get();
         $sigleImage = $request->file('sigle');
         $rccmFile= $request->file('rccm_file');
         $ndniFile= $request->file('num_impot_file');
         // dd($ndniFile);
-        $save_img = ''; $rccm_path = ''; $ndni_path = '';
-
+        $save_img =''; $rccm_path =''; $ndni_path ='';
         if ($rccmFile) {
-            $destination_path = 'public/upload/entreprise_doc';
+            $destination_path = 'upload/entreprise_doc';
             $file_name = $rccmFile->getClientOriginalName();
-            $uniqueName = 'rccm'.'_'.'.'.'pdf';
-            $rccm_path = $rccmFile->storeAs($destination_path,$uniqueName);
+            $uniqueName = uniqid().'rccm'.'.'.'pdf';
+            $rccm_path = $rccmFile->move($destination_path,$uniqueName);
         }
         if ($ndniFile) {
-            $destination_path = 'public/upload/entreprise_doc';
+            $destination_path = 'upload/entreprise_doc';
             $file_name = $ndniFile->getClientOriginalName();
-            $uniqueName = 'ndni'.'_'.'.'.'pdf';
-            $ndni_path = $ndniFile->storeAs($destination_path,$uniqueName);
+            $uniqueName = uniqid().'ndni'.'.'.'pdf';
+            $ndni_path = $ndniFile->move($destination_path,$uniqueName);
         }
 
         if($sigleImage){
@@ -158,12 +157,7 @@ class AffiliationController extends Controller
             $taille->toJpeg(80)->save(base_path('public/upload/sigle/'.$unique));
             $save_img = 'upload/sigle/'.$unique;
 
-            // $filename = $sigleImage->getClientOriginalName();
-            // $unique = uniqid()."_".$filename;
-            // Image::make($sigleImage)->resize(600,600)->save('upload/sigle/'.$unique);
-            // $save_img = 'upload/sigle/'.$unique;
-            // dd($save_img);
-            // $user->profile_photo_path = $save_img;
+
         }
 
         if ($request->nombre_emp > 20) {
@@ -177,92 +171,48 @@ class AffiliationController extends Controller
             Alert::toast('Ce Nom d\'entreprise a été déclaré veillez changer le nom','error');
             return redirect()->back();
         } else {
-            $entreprise = new Entreprise();
-
-            $entreprise->num_agrement = $request->num_agrement;
-            $entreprise->raison_sociale = $request->raison_sociale;
-            $entreprise->num_impot = $request->num_impot;
-            $entreprise->activite_principale = $request->activite_principale;
-            $entreprise->quartier_entreprise = $request->quartier_entreprise;
-            $entreprise->commune_entreprise = $request->commune_entreprise;
-            $entreprise->ville_entreprise =$request->ville_entreprise;
-            $entreprise->nombre_emp =$request->nombre_emp;
-            $entreprise->boite_postale =$request->boite_postale;
-            $entreprise->categorie =$categorie;
-            $entreprise->sigle =$save_img;
-            $entreprise->rccm_file =$rccm_path;
-            $entreprise->num_impot_file =$ndni_path;
-            //   $entreprise->created_at = Carbon::now();
-            $entreprise->save();
-
-            $entreprise_id = $entreprise->id;
-
-            // $entreprise = Entreprise::insertGetId([
-            //     'num_agrement' => $request->num_agrement,
-            //     'raison_sociale' => $request->raison_sociale,
-            //     'num_impot' => $request->num_impot,
-            //     'activite_principale' => $request->activite_principale,
-            //     'quartier_entreprise' => $request->quartier_entreprise,
-            //     'commune_entreprise' => $request->commune_entreprise,
-            //      'ville_entreprise' =>$request->ville_entreprise,
-            //      'nombre_emp' =>$request->nombre_emp,
-            //     // 'effectif_homme' =>$request->effectif_homme,
-            //     // 'effectif_femme' =>$request->effectif_femme,
-            //     'boite_postale' =>$request->boite_postale,
-            //     'categorie' =>$categorie,
-            //     'sigle' =>$save_img,
-            //     'rccm_file' =>$rccm_path,
-            //     'num_impot_file' =>$ndni_path,
-            //     'created_at' => Carbon::now()
-            // ]);
+            $entreprise = Entreprise::insertGetId([
+                'num_agrement' => $request->num_agrement,
+                'raison_sociale' => $request->raison_sociale,
+                'num_impot' => $request->num_impot,
+                'activite_principale' => $request->activite_principale,
+                'quartier_entreprise' => $request->quartier_entreprise,
+                'commune_entreprise' => $request->commune_entreprise,
+                 'ville_entreprise' =>$request->ville_entreprise,
+                 'nombre_emp' =>$request->nombre_emp,
+                // 'effectif_homme' =>$request->effectif_homme,
+                // 'effectif_femme' =>$request->effectif_femme,
+                'boite_postale' =>$request->boite_postale,
+                'categorie' =>$categorie,
+                'sigle' =>$save_img,
+                'rccm_file' =>$rccm_path,
+                'num_impot_file' =>$ndni_path,
+                'created_at' => Carbon::now()
+            ]);
             // // dd($entreprise);
             // ////// Representant store
-            $representant = new Representant();
-             $representant->prenom =  $request->prenom;
-             $representant->nom =  $request->nom;
-             $representant->document_identite =  $request->document_identite;
-                // 'ville_representant =  $request->ville_representant;
-             $representant->email =  $request->email;
-             $representant->telephone_representant = $request->telephone_representant;
-             $representant->adresse_representant = $request->adresse_representant;
-             $representant->entreprise_id =  $entreprise_id;
-            //  $representant->created_at =  Carbon::now();
-             $representant->save();
-             $representant_id = $representant->id;
-
-
-            // $representant = Representant::insertGetId([
-            //     'prenom' => $request->prenom;
-            //     'nom' => $request->nom,
-            //     'document_identite' => $request->document_identite,
-            //     // 'ville_representant' => $request->ville_representant,
-            //     'email' => $request->email,
-            //     'telephone_representant' =>$request->telephone_representant,
-            //     'adresse_representant' =>$request->adresse_representant,
-            //     'entreprise_id' => $entreprise,
-            //     'created_at' => Carbon::now()
-            // ]);
+            $representant = Representant::insertGetId([
+                'prenom' => $request->prenom,
+                'nom' => $request->nom,
+                'document_identite' => $request->document_identite,
+                // 'ville_representant' => $request->ville_representant,
+                'email' => $request->email,
+                'telephone_representant' =>$request->telephone_representant,
+                'adresse_representant' =>$request->adresse_representant,
+                'entreprise_id' => $entreprise,
+                'created_at' => Carbon::now()
+            ]);
             // // dd($representant);
             // ///// Demande store
-            $demande = new Demande();
-
-           $demande->representant_id = $representant_id;
-               $demande->entreprise_id = $entreprise_id;
-               $demande->type_demande = "affiliation";
-               $demande->code_demande = $code;
-            //    $demande->created_at = Carbon::now();
-               $demande->save();
-
-            // $demande = Demande::create([
-            //     'representant_id' => $entreprise_id,
-            //     'entreprise_id' => $representant_id,
-            //     'type_demande' => "affiliation",
-            //     'code_demande' => $code,
+            $demande = Demande::create([
+                'representant_id' => $representant,
+                'entreprise_id' => $entreprise,
+                'type_demande' => "affiliation",
+                'code_demande' => $code,
 
 
-            //     'created_at' => Carbon::now()
-            // ]);
-            // dd($demande);
+                'created_at' => Carbon::now()
+            ]);
 
             return view('pages.confirmation-affiliation',compact('demande'));
         }

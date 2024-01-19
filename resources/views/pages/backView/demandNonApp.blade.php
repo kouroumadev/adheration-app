@@ -39,25 +39,25 @@
               </thead>
               <tbody>
                 @if (!empty($demande))
+                    @foreach ($demande as $dem )
+                    <tr>
 
+                        <td>{{ $dem['entreprises']['raison_sociale'] }}</td>
+                        <td>{{ $dem['entreprises']['nombre_emp'] }}</td>
+                        <td>{{ $dem['representants']['prenom'] }} {{ $dem['representants']['nom'] }}</td>
+                        <td>{{ $dem['created_at'] }}</td>
+                        <td>
+                        {{-- <a href="#" class="btn btn-info" onclick="getInfo('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#largeModal" > <i class="bi bi-eye"></i> voir</a> --}}
+                        <a href="{{ route('demande-voir-info',$dem['id']) }}" class="btn btn-info"><i class="bi bi-eye"></i> voir</a>
+                        {{-- <a href="#" class="btn btn-success" onclick="assignId('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#basicModal"> <i class="bi bi-check"></i> Approuver</a> --}}
 
-                @foreach ($demande as $dem )
-                <tr>
-
-                    <td>{{ $dem['entreprises']['raison_sociale'] }}</td>
-                    <td>{{ $dem['entreprises']['nombre_emp'] }}</td>
-                    <td>{{ $dem['representants']['prenom'] }} {{ $dem['representants']['nom'] }}</td>
-                    <td>{{ $dem['created_at'] }}</td>
-                    <td>
-                       <a href="#" class="btn btn-info" onclick="getInfo('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#largeModal" > <i class="bi bi-eye"></i> voir</a>
-                       <a href="#" class="btn btn-success" onclick="assignId('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#basicModal"> <i class="bi bi-check"></i> Approuver</a>
-
-                    </td>
-                  </tr>
-                @endforeach
+                        </td>
+                    </tr>
+                    @endforeach
                 @else
-                <td>Pas de Donner</td>
+                <td>Diane</td>
                 @endif
+
 
 
               </tbody>
@@ -212,7 +212,7 @@
         </div>
       </div>
     </form>
-    </div>
+</div>
   </div>
   </section>
 

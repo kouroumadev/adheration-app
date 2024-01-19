@@ -1,41 +1,3 @@
-{{-- @extends('pages.master')
-@section('content') --}}
-
-{{-- <section class="ftco-section" style="margin-top: 150px">
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-    <div class="card" style="width: 70%; margin: auto; border:none">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="{{ asset('images/image-home.png') }}" width="80%" height="80%" alt="" srcset="">
-
-            </div>
-            <div class="col-md-6">
-
-                <h4 class="text-center mb-4 font-weight-bold">Bienvenue !</h4>
-                <h5 class="text-center mb-4 ">Connectez vous a votre compte</h5>
-                @error('login')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <div class="mb-3">
-                    <label for="formGroupExampleInput" class="form-label">No Affiliation</label>
-                    <input type="text"  name="login" :value="old('login')" required class="form-control" id="login" placeholder="No Affiliation">
-                  </div>
-                  <div class="mb-3">
-                    <label for="formGroupExampleInput2" class="form-label">Mot de passe</label>
-                    <input type="password" name="password" required class="form-control" id="password" placeholder="Mot de passe">
-                  </div>
-
-                  <div class="mb-3 w-50">
-                        <button class="btn btn-success">Connecter</button>
-                  </div>
-            </div>
-
-        </div>
-
-    </div>
-    </form>
-</section> --}}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -52,6 +14,7 @@
   <link href="{{ asset('images/Logocnss.png') }}" rel="icon">
   <link href="{{ asset('images/Logocnss.png') }}" rel="apple-touch-icon">
 
+
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -67,7 +30,8 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('back/assets/css/style.css')}}" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script> --}}
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -83,87 +47,88 @@
     }
 </style>
 <body>
-
-  <main>
-    <div class="container">
-
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+    @include('sweetalert::alert')
+    <main>
         <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-              <div class="logo d-flex justify-content-center py-4">
-                <div class=" d-flex align-items-center w-auto">
-                  <img src="{{ asset('images/Logocnss.png') }}" width="150" height="150" alt="">
+          <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-                </div>
-              </div><!-- End Logo -->
+                  <div class="logo  justify-content-center py-4">
+                    <div class=" d-flex align-items-center w-auto" style="position: relative; left:80px">
+                      <img src="{{ asset('images/Logocnss.png') }}" width="150" height="150" alt="" >
 
-              <div class="card mb-3">
+                    </div>
+                    <H4 class="text-center align-items-center w-auto">CAISSE NATIONALE DE LA SECURITE SOCIALE</H4>
+                  </div><!-- End Logo -->
 
-                <div class="card-body">
+                  <div class="card mb-3">
 
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Bienvenue !</h5>
-                    <p class="text-center small">Connectez vous a votre compte</p>
-                  </div>
-                    {{-- @error('login') --}}
-                        <div class="alert alert-danger d-none" id="error-alert">Numéro ou mot de passe incorrect</div>
-                    {{-- @enderror --}}
-                  <form class="row g-3 needs-validation" novalidate id="login-form">
-                        @csrf
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Numéro Immatriculation</label>
-                      <div class="input-group has-validation">
-                        {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
-                        <input type="text" name="n_affiliation" class="form-control" id="n_affiliation" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                    <div class="card-body">
+
+                      <div class="pt-4 pb-2">
+                        <h5 class="card-title text-center pb-0 fs-4">Bienvenue !</h5>
+                        <p class="text-center small">Connectez vous a votre compte</p>
                       </div>
+                        {{-- @error('login') --}}
+                            <div class="alert alert-danger d-none" id="error-alert">Numéro ou mot de passe incorrect</div>
+                        {{-- @enderror --}}
+                      <form class="row g-3 needs-validation" novalidate id="login-form">
+                            @csrf
+                        <div class="col-12">
+                          <label for="yourUsername" class="form-label">Numéro Immatriculation</label>
+                          <div class="input-group has-validation">
+                            {{-- <span class="input-group-text" id="inputGroupPrepend">@</span> --}}
+                            <input type="text" name="n_affiliation" class="form-control" id="n_affiliation" required>
+                            <div class="invalid-feedback">Please enter your username.</div>
+                          </div>
+                        </div>
+
+                        <div class="col-12">
+                          <label for="yourPassword" class="form-label">Mot de passe</label>
+                          <input type="password" name="password" class="form-control" id="password" required>
+                          <div class="invalid-feedback">Please enter your password!</div>
+                        </div>
+
+                        <div class="col-12">
+                          {{-- <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                          </div> --}}
+                        </div>
+                        <div class="col-12">
+                          <button class="btn btn-success w-100"  type="submit">Connexion</button>
+                        </div>
+                        <div class="col-12">
+                          <p class="small mb-0"> Mot de passe Oublié?<a href="#"> Clickez ici .</a></p>
+                        </div>
+                      </form>
+
                     </div>
 
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Mot de passe</label>
-                      <input type="password" name="password" class="form-control" id="password" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                    <div>
+                        {{-- <img src="{{ asset('images/Logocnss.png') }}" width="100%" height="500" style="position: absolute; top:-50px;opacity: 0.1; z-index:-1"> --}}
                     </div>
+                  </div>
 
-                    <div class="col-12">
-                      {{-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div> --}}
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-success w-100"  type="submit">Connexion</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0"> Mot de passe Oublié?<a href="#"> Clickez ici .</a></p>
-                    </div>
-                  </form>
+                  <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+
+                  </div>
 
                 </div>
-
-                <div>
-                    {{-- <img src="{{ asset('images/Logocnss.png') }}" width="100%" height="500" style="position: absolute; top:-50px;opacity: 0.1; z-index:-1"> --}}
-                </div>
               </div>
-
-              <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                CAISSE NATIONALE DE LA SECURITE SOCIALE
-              </div>
-
             </div>
-          </div>
+
+          </section>
+
         </div>
-
-      </section>
-
-    </div>
-  </main><!-- End #main -->
+      </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

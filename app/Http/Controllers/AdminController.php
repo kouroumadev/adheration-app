@@ -7,6 +7,7 @@ use Illuminate\Validation\Rules\Password;
 use App\Models\User;
 use App\Models\Demande;
 use App\Models\Entreprise;
+use App\Models\Representant;
 use App\Models\cotisation;
 use App\Models\NumStore;
 use App\Models\Sequence;
@@ -29,6 +30,23 @@ class AdminController extends Controller
         //dd(Auth::attempt(['n_affiliation' => $n_affiliation, 'password' => $password]));
 
         if (Auth::attempt(['n_affiliation' => $n_affiliation, 'password' => $password])) {
+
+            $data = "success";
+           return response()->json($data, 200);
+        }
+        else{
+            $data = "error";
+            return response()->json($data, 200);
+        }
+        // dd($n_affiliation);
+    }
+    public function LoginAjaxBackOffice(Request $request){
+        $email = $request->email;
+        $password = $request->password;
+        //dd(session(),$password);
+        //dd(Auth::attempt(['email' => $email, 'password' => $password]));
+
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
 
             $data = "success";
            return response()->json($data, 200);
@@ -118,51 +136,78 @@ class AdminController extends Controller
         return view('pages.backView.demandApp',compact('demande'));
     }
 
+    public function DemandeVoirInfo($id){
+        $demande = Demande::find($id);
+        $entreprise = Entreprise::find($demande->entreprise_id);
+        $representant = Representant::find($demande->representant_id);
+        //dd($demande);
+        return view('pages.backView.demandeVoirInfo',compact('entreprise','representant','demande'));
+    }
+
+    public function DocEntrepriseRccm(Request $request){
+        $employeur = Entreprise::find($request->doc_id);
+        $path = asset($employeur->rccm_file);
+        return response()->json(array(
+            'rccm' => $path,
+        ));
+    }
+    public function DocEntrepriseImpot(Request $request){
+        $employeur = Entreprise::find($request->doc_id);
+        $path = asset($employeur->num_impot_file);
+        return response()->json(array(
+            'impot' => $path,
+        ));
+    }
+
     public function GetNumImmatriculation(Request $request ){
         $seq_num=0;
         $day = date('d');
         $month = date('m');
         $last_employeur = Entreprise::latest()->get();
         $last_sequence = Sequence::latest()->get();
-        // dd($last_sequence);
-        // $last_employeur_immat = $last_employeur[0]['n_immatriculation'];
-        // // $sequence =substr($last_employeur_immat,4);
-         $demande = Demande::with(['representants','entreprises'])->find($request->id);
-        // $rccm = substr($demande['entreprises']['num_agrement'],0,3) ;
-         $activite = DB::table('branche')->where('id', '=', $demande['entreprises']['activite_principale'])->get();
+        // dd($last_sequence[0]['code']);
+        //  $demande = Demande::with(['representants','entreprises'])->find($request->id);
+        $entreprise = Entreprise::find($request->id);
+
+         $activite = DB::table('branche')->where('id', '=', $entreprise->activite_principale)->get();
+        //  dd($activite[0]->code);
          $code_activite = $activite[0]->code;
-         $ville = DB::table('prefecture')->where('id', '=', $demande['entreprises']['ville_entreprise'])->get();
+         $ville = DB::table('prefecture')->where('id', '=', $entreprise->ville_entreprise)->get();
          $code_ville = $ville[0]->code;
-        // $n_mmatriculation = $code_activite.$code_ville.$sequence.$type;
+       // dd($code_ville);
         if (sizeof($last_sequence)==0) {
+
             $seq_num = $seq_num+1;
-            // $sequence = substr($last_employeur_immat,6,3);
+
             $n_immatriculation = $code_activite.$code_ville.$seq_num.$code_ville.'00';
-            Sequence::insert([
-                'code'=>$seq_num,
-                'created_at' => carbon::now(),
-            ]);
+            // Sequence::insert([
+            //     'code'=>$seq_num,
+            //     'created_at' => carbon::now(),
+            // ]);
             // dd($seq_num);
             return response()->json(array(
                 'alert' => 'success',
                 'n_immatriculation' => $n_immatriculation,
+                'sequence' => $seq_num,
 
             ));
         }
         else{
+            //dd($last_sequence[0]['code']);
+
             $seq_num = $last_sequence[0]['code']+1;
 
-            $n_immatriculation = $code_activite.$code_ville.$seq_num.$code_ville.'00';
+             $n_immatriculation = $code_activite.$code_ville.$seq_num.$code_ville.'00';
 
-            Sequence::insert([
-                'code'=>$seq_num,
-                'created_at' => carbon::now(),
-            ]);
-            // dd($seq_num);
-            //dd($n_immatriculation);
+            // Sequence::insert([
+            //     'code'=>$seq_num,
+            //     'created_at' => carbon::now(),
+            // ]);
+
             return response()->json(array(
                 'alert' => 'success',
                 'n_immatriculation' => $n_immatriculation,
+                'sequence' => $seq_num,
 
             ));
         }
@@ -187,15 +232,17 @@ class AdminController extends Controller
     }
     public function AjoutNumAff(Request $request){
         $id = $request->id;
-        // dd($request->immatriculation);
+         //dd($request->immatriculation);
         $n_affiliation = $request->immatriculation;
+        $sequence = $request->sequence_num;
+        $last_sequence = Sequence::latest()->get();
         $exist = User::where('n_affiliation',$n_affiliation)->get();
         $pass = 'Cnss@2024';
-        $data = Demande::with(['representants','entreprises'])->find($id);
-        $employeur_id = $data['entreprises']['id'];
+        $data = Demande::with(['representants','entreprises'])->find($request->demande_id);
+        // $employeur_id = $data['entreprises']['id'];
 
-         $employeur = Entreprise::find($employeur_id);
-          //dd($request->n_immatriculation);
+         $employeur = Entreprise::find($request->id);
+        //dd($data);
         $email_exist = User::where('email',$data['representants']['email'])->get();
         if (sizeof($exist) == 1) {
             $data = "exist";
@@ -203,7 +250,10 @@ class AdminController extends Controller
         }
 
         else {
-
+           // dd($sequence);
+            // if (sizeof($last_sequence) == 0) {
+            //     # code...
+            // }
             $employeur->n_immatriculation = $request->immatriculation;
             $employeur->save();
 
@@ -218,12 +268,14 @@ class AdminController extends Controller
             ]);
             $data->status_demande = 1;
             $data->save();
-
+            Sequence::insert([
+                'code'=>$sequence,
+                'created_at' => carbon::now(),
+            ]);
             // TODO SENDING MAIL WITH LOGIN DETAILS
             Mail::to($data['representants']['email'])->send(new LoginInfo($n_affiliation,$pass));
-            //             Alert::toast('Cette demande à été approuvée','success');
-            //              return redirect()->back();
-
+            // Alert::toast('Cette demande à été approuvée','success');
+            // return redirect()->back();
             $data = "sent";
             return response()->json($data, 200);
         }
