@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('document_identite');
             $table->string('prenom');
             $table->string('nom');
-            $table->string('ville_representant');
+            $table->string('ville_reprsentant')->nullable();
             $table->string('telephone_representant');
             $table->string('email');
             $table->string('adresse_representant');

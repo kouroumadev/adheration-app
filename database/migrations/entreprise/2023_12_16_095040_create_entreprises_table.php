@@ -22,13 +22,13 @@ return new class extends Migration
             $table->string('commune_entreprise');
             $table->string('ville_entreprise');
             $table->string('nombre_emp');
-            $table->string('effectif_homme');
-            $table->string('effectif_femme');
+            $table->string('effectif_homme')->nullable();
+            $table->string('effectif_femme')->nullable();
             $table->string('boite_postale');
-            $table->string('sigle');
+            $table->string('sigle')->nullable();
             $table->string('categorie');
             $table->string('rccm_file');
-            $table->string('num_impot_file');
+            $table->string('num_import_file');
             $table->string('adresse');
             $table->timestamps();
         });

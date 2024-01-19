@@ -127,7 +127,7 @@ class AffiliationController extends Controller
     }
     public function AffStore(Request $request){
         // dd($request->i_fiscale);
-        $categorie ='';
+        $categorie = '';
         $code = Str::upper(Str::random(13));
         $existe = Entreprise::where('raison_sociale',$request->raison_sociale)->get();
         $sigleImage = $request->file('sigle');
@@ -191,17 +191,31 @@ class AffiliationController extends Controller
             ]);
             // // dd($entreprise);
             // ////// Representant store
-            $representant = Representant::insertGetId([
-                'prenom' => $request->prenom,
-                'nom' => $request->nom,
-                'document_identite' => $request->document_identite,
-                // 'ville_representant' => $request->ville_representant,
-                'email' => $request->email,
-                'telephone_representant' =>$request->telephone_representant,
-                'adresse_representant' =>$request->adresse_representant,
-                'entreprise_id' => $entreprise,
-                'created_at' => Carbon::now()
-            ]);
+            $representant = new Representant();
+             $representant->prenom =  $request->prenom;
+             $representant->nom =  $request->nom;
+             $representant->document_identite =  $request->document_identite;
+                // 'ville_representant =  $request->ville_representant;
+             $representant->email =  $request->email;
+             $representant->telephone_representant = $request->telephone_representant;
+             $representant->adresse_representant = $request->adresse_representant;
+             $representant->entreprise_id =  $entreprise_id;
+            //  $representant->created_at =  Carbon::now();
+             $representant->save();
+             $representant_id = $representant->id;
+
+
+            // $representant = Representant::insertGetId([
+            //     'prenom' => $request->prenom;
+            //     'nom' => $request->nom,
+            //     'document_identite' => $request->document_identite,
+            //     // 'ville_representant' => $request->ville_representant,
+            //     'email' => $request->email,
+            //     'telephone_representant' =>$request->telephone_representant,
+            //     'adresse_representant' =>$request->adresse_representant,
+            //     'entreprise_id' => $entreprise,
+            //     'created_at' => Carbon::now()
+            // ]);
             // // dd($representant);
             // ///// Demande store
             $demande = Demande::create([
