@@ -199,7 +199,7 @@ class AffiliationController extends Controller
              $representant->email =  $request->email;
              $representant->telephone_representant = $request->telephone_representant;
              $representant->adresse_representant = $request->adresse_representant;
-             $representant->entreprise_id =  $entreprise_id;
+             $representant->entreprise_id =  $entreprise;
             //  $representant->created_at =  Carbon::now();
              $representant->save();
              $representant_id = $representant->id;
