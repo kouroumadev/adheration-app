@@ -31,7 +31,7 @@
                                           </p>
                                           <button type="button" class="btn btn-primary">
                                             <a
-                                                href='/asset/employee_list.xlsx' target="_blank"
+                                                href="{{ asset('asset/employee_list.xlsx') }}" target="_blank"
                                             style="color:#fff;">Telecharger le fichier échantillon</a>
 
                                         </button>
