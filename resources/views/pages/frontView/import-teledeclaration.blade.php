@@ -54,6 +54,7 @@
                             @if ($entreprise->categorie == "E+20")
                                     <div class="row justify-content-center">
 
+<<<<<<< HEAD
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
                                             <div class="">
@@ -83,15 +84,29 @@
                                     <div class="col-md-4">
                                         <label for="inputText" class="col-sm-6 col-form-label">Trimestres</label>
                                         <div class="">
+=======
+
+                            <form action="">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput">Example label</label>
+>>>>>>> 0817ad30d566a612550a0294ff380b62b4cb3138
                                             <select class="form-select" name="commune_employer"
                                                 id="commune_employer"
                                                 aria-label="Floating label select example">
                                             </select>
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                     <div class="col-md-4">
                                         <label for="inputText" class="col-sm-6 col-form-label">Annee</label>
                                         <div class="">
+=======
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput">Example label</label>
+>>>>>>> 0817ad30d566a612550a0294ff380b62b4cb3138
                                             <select class="form-select" name="commune_employer"
                                                 id="commune_employer"
                                                 aria-label="Floating label select example">
@@ -101,9 +116,17 @@
                                     <div class="col-md-4">
                                         <button type="submit" class="btn btn-success">Afficher</button>
                                     </div>
+<<<<<<< HEAD
 
                                 </div>
                             @endif
+=======
+                                </div>
+                            </form>
+                                {{-- <div class="col-md-3">
+                                    <button class="btn btn-success">valider</button>
+                                </div> --}}
+>>>>>>> 0817ad30d566a612550a0294ff380b62b4cb3138
 
 
 
