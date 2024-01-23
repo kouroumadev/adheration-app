@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('parent_id');
             $table->foreignId('employer_id')->constrained();
             $table->string('jour_declare');
-            $table->string('periode_debut');
-            $table->string('periode_fin');
+            $table->string('mois');
+            $table->string('annee');
             $table->string('salaire_brute');
             $table->string('salaire_soumis');
             $table->string('montant_cotise');

@@ -149,7 +149,7 @@ class EmployerController extends Controller
             ]
         );
 
-        $headers = ['parent_id','employer_matricule','jour_declare','periode_debut','periode_fin'];
+        $headers = ['parent_id','employer_matricule','jour_declare','mois','annee'];
 
         if(Input::hasFile('cotisation_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('cotisation_file'));
@@ -169,7 +169,7 @@ class EmployerController extends Controller
                 }
 
                 return Redirect::back()->withErrors([
-                    'msg' => "Le fichier de Cotisation doit etre conforme avec le fichier teste, les colonnes ci-dessous sont absents",
+                    'msg' => "Le fichier de Cotisation doit etre conforme avec le fichier teste, les colonnes ci-dessous sont absentes",
                     'sms' => $err,
                 ]);
             }

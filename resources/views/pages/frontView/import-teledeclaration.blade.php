@@ -52,6 +52,35 @@
                                 </div>
                             </div>
 
+                            <div class="row justify-content-center">
+                                {{-- <form action=""> --}}
+                                    <div class="col-md-3">
+                                        <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
+                                        <div class="">
+                                            <select class="form-select" name="commune_employer"
+                                                id="commune_employer"
+                                                aria-label="Floating label select example">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
+                                        <div class="">
+                                            <select class="form-select" name="commune_employer"
+                                                id="commune_employer"
+                                                aria-label="Floating label select example">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-success">Afficher</button>
+                                    </div>
+                                {{-- </form> --}}
+                                {{-- <div class="col-md-3">
+                                    <button class="btn btn-success">valider</button>
+                                </div> --}}
+                            </div>
+
 
                         </div>
 
@@ -81,8 +110,8 @@
                                     <th scope="col">Salaire Brut</th>
                                     <th scope="col">Salaire Soumis A cotisation</th>
                                     <th scope="col">Montant cotise</th>
-                                    <th scope="col">Periode Debut</th>
-                                    <th scope="col">Periode Fin</th>
+                                    <th scope="col">Mois</th>
+                                    <th scope="col">Annee</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,8 +123,8 @@
                                     <td>{{ $dem['salaire_brute']}} </td>
                                     <td>{{ $dem['salaire_soumis'] }}</td>
                                     <td>{{ $dem['montant_cotise']}}</td>
-                                    <td>{{ $dem['periode_debut']}}</td>
-                                    <td>{{ $dem['periode_fin']}} </td>
+                                    <td>{{ $dem['mois']}}</td>
+                                    <td>{{ $dem['annee']}} </td>
 
                                     {{-- <td>
                                        <a href="#" class="btn btn-info" onclick="getInfo('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#largeModal" > <i class="bi bi-eye"></i> voir</a>

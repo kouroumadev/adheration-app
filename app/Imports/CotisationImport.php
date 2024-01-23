@@ -39,8 +39,8 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
             'parent_id' => $row['parent_id'],
             'employer_id' => $employee->id,
             'jour_declare' => $row['jour_declare'],
-            'periode_debut' => $row['periode_debut'],
-            'periode_fin' => $row['periode_fin'],
+            'mois' => $row['mois'],
+            'annee' => $row['annee'],
             'salaire_brute' => $employee->salaire_brut,
             'salaire_soumis' => $soumis,
             'montant_cotise' => $cota,
@@ -50,11 +50,14 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
 
     public function rules(): array
     {
+        $mois = ['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];
         $emp_id = Employer::pluck('matricule')->toArray();
+
         return [
             'employer_matricule' => ['required',Rule::in($emp_id)],
             'jour_declare' => 'required',
-            'periode_debut' => 'required',
+            'mois' => ['required',Rule::in($mois)],
+            'annee' => 'required',
 
             // 'email' => Rule::in(['patrick@maatwebsite.nl']),
         ];
@@ -71,7 +74,9 @@ class CotisationImport implements ToModel, WithValidation, WithHeadingRow
             'parent_id' => 'Parent ID',
             'jour_declare' => 'Jour Declare',
             'periode_debut' => 'Periode Debut',
-            'periode_fin' => 'Periode Fin'
+            'periode_fin' => 'Periode Fin',
+            'mois' => 'Mois',
+            'annee' => 'Annee',
         ];
     }
 }
