@@ -51,11 +51,37 @@
                                     </form>
                                 </div>
                             </div>
+                            @if ($entreprise->categorie == "E+20")
+                                    <div class="row justify-content-center">
 
-                            <div class="row justify-content-center">
-                                {{-- <form action=""> --}}
-                                    <div class="col-md-3">
-                                        <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
+                                        <div class="col-md-3">
+                                            <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
+                                            <div class="">
+                                                <select class="form-select" name="commune_employer"
+                                                    id="commune_employer"
+                                                    aria-label="Floating label select example">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
+                                            <div class="">
+                                                <select class="form-select" name="commune_employer"
+                                                    id="commune_employer"
+                                                    aria-label="Floating label select example">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-success">Afficher</button>
+                                        </div>
+
+                                    </div>
+                            @else
+                                <div class="row justify-content-center">
+
+                                    <div class="col-md-4">
+                                        <label for="inputText" class="col-sm-6 col-form-label">Trimestres</label>
                                         <div class="">
                                             <select class="form-select" name="commune_employer"
                                                 id="commune_employer"
@@ -63,8 +89,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
+                                    <div class="col-md-4">
+                                        <label for="inputText" class="col-sm-6 col-form-label">Annee</label>
                                         <div class="">
                                             <select class="form-select" name="commune_employer"
                                                 id="commune_employer"
@@ -72,14 +98,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <button type="submit" class="btn btn-success">Afficher</button>
                                     </div>
-                                {{-- </form> --}}
-                                {{-- <div class="col-md-3">
-                                    <button class="btn btn-success">valider</button>
-                                </div> --}}
-                            </div>
+
+                                </div>
+                            @endif
+
 
 
                         </div>

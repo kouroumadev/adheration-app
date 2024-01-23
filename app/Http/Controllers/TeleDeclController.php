@@ -58,7 +58,7 @@ class TeleDeclController extends Controller
         $employers = Employer::where('entreprise_id',$entreprise_id)->get();
         // dd($cotisations[0]['salaire_brut']);
         $entreprise = Entreprise::find($entreprise_id);
-        // dd($entreprise);
+         //dd($employers[0]['nom_employer']);
         return view('pages.frontView.import-teledeclaration',compact('entreprise','cotisations','employers'));
 
     }
@@ -304,8 +304,8 @@ class TeleDeclController extends Controller
             if ($periode_fin == $month) {
                         $data = "exist";
                         return response()->json($data, 200);
-                    }
-                    else {
+            }
+            else {
 
                         cotisation::insert([
                             'entreprise_id' =>$request->entreprise_id,
