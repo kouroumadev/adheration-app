@@ -52,11 +52,12 @@
                                 </div>
                             </div>
 
-                            <div class="row justify-content-center">
-                                {{-- <form action=""> --}}
+
+                            <form action="">
+                                <div class="row justify-content-center">
                                     <div class="col-md-3">
-                                        <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
-                                        <div class="">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput">Example label</label>
                                             <select class="form-select" name="commune_employer"
                                                 id="commune_employer"
                                                 aria-label="Floating label select example">
@@ -64,8 +65,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
-                                        <div class="">
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput">Example label</label>
                                             <select class="form-select" name="commune_employer"
                                                 id="commune_employer"
                                                 aria-label="Floating label select example">
@@ -75,11 +76,12 @@
                                     <div class="col-md-3">
                                         <button type="submit" class="btn btn-success">Afficher</button>
                                     </div>
-                                {{-- </form> --}}
+                                </div>
+                            </form>
                                 {{-- <div class="col-md-3">
                                     <button class="btn btn-success">valider</button>
                                 </div> --}}
-                            </div>
+
 
 
                         </div>
