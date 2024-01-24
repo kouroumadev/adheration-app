@@ -75,6 +75,7 @@ Route::middleware([
     // Route::get('/approuve-demande', [AdminController::class, 'ApprouveDemande']);
     Route::get('/tele-dec', [TeleDeclController::class, 'TeleDec'])->name('tele-dec');
     Route::get('/immatriculation', [TeleDeclController::class, 'Immatriculation'])->name('immatriculation');
+    Route::post('/immatriculation/employee-leave', [TeleDeclController::class, 'employeeLeave'])->name('immatriculation-emp-leave');
     Route::get('/charge-ajout-assure', [TeleDeclController::class, 'ChargeAjoutAssure'])->name('charge-ajout-assure');
     Route::get('/import-immatriculation', [TeleDeclController::class, 'ImportImmatriculation'])->name('import-immatriculation');
     Route::get('/import-teledeclaration', [TeleDeclController::class, 'ImportTeledeclaration'])->name('import-teledeclaration');
