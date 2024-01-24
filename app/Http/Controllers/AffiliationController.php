@@ -243,7 +243,7 @@ class AffiliationController extends Controller
         $demande = Demande::with(['representants','entreprises'])->find($demande);
         $data['entreprise'] = $demande['entreprises'];
         $data['representant'] = $demande['representants'];
-        // dd($data['representants']);
+     dd($data['entreprise']);
 
         $pdf = Pdf::loadView('pages.confirmation-aff-pdf',$data);
         return $pdf->stream('formulaire.pdf');
