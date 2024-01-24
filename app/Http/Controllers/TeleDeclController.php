@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployeeLeave;
 use Illuminate\Http\Request;
 use App\Models\Entreprise;
 use App\Models\Employer;
@@ -16,6 +17,7 @@ use App\Mail\ChangerEmployeur;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Alert;
+use App\Imports\EmployeesImport;
 use Auth;
 use Hash;
 use DB;
@@ -25,6 +27,9 @@ class TeleDeclController extends Controller
 {
     public function Immatriculation(){
 
+        $mois = DB::table('mois')->get();
+        // $trimestres = DB::table('trimestres')->get();
+
         $entreprise_id = Auth::user()->entreprise_id;
         $employers = Employer::where('entreprise_id',$entreprise_id)->where('liberer',1)->get();
         //  dd($employers[0]['n_immatriculation']);
@@ -33,7 +38,25 @@ class TeleDeclController extends Controller
         // $text = "Etes Vous Sure de vouloir Supprimé cet employé?";
         // confirmAction($title, $text);
 
-        return view('pages.frontView.immatriculation',compact('entreprise_id','employers'));
+        return view('pages.frontView.immatriculation',compact('entreprise_id','employers','mois'));
+    }
+
+    public function employeeLeave(Request $request){
+        // dd($request->all());
+
+        $employee = Employer::find($request->employee_id)->get()->first();
+        dd($employee);
+        $emp = new EmployeeLeave();
+
+        $emp->entreprise_id = Auth::user()->id;
+        $emp->employer_id =$request->employee_id;
+        $emp->mois = $request->months_id;
+        $emp->annee = $request->year;
+        $emp->motif = $request->motif;
+
+        $emp->save();
+
+        return redirect()->route('immatriculation');
     }
 
     public function ChargeAjoutAssure(Request $request){
