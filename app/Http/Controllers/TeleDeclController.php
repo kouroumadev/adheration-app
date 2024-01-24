@@ -304,69 +304,50 @@ class TeleDeclController extends Controller
 
     public function AjoutCotisation(Request $request){
         $exist = Cotisation::where('employer_id',$request->employer_id)->where('entreprise_id',$request->entreprise_id)->first();
-        // dd($exist->id);
-        if ($exist) {
-            $month = Carbon::parse($exist->periode_fin)->format('m');
-            $periode_fin = Carbon::parse($request->periode_fin)->format('m');
-            if ($periode_fin == $month) {
-                        $data = "exist";
-                        return response()->json($data, 200);
-            }
-            else {
+         dd($request->all());
+        // if ($exist) {
+        //     $month = Carbon::parse($exist->periode_fin)->format('m');
+        //     $periode_fin = Carbon::parse($request->periode_fin)->format('m');
+        //     if ($periode_fin == $month) {
+        //                 $data = "exist";
+        //                 return response()->json($data, 200);
+        //     }
+        //     else {
 
-                        cotisation::insert([
-                            'entreprise_id' =>$request->entreprise_id,
-                            'employer_id' =>$request->employer_id,
-                            'jour_declare' =>$request->jour_declare,
-                            'periode_debut' =>$request->periode_debut,
-                            'periode_fin' =>$request->periode_fin,
-                            'salaire_brut' =>$request->salaire_brut,
-                            'salaire_soumis' =>$request->salaire_soumis,
-                            'montant_cotise' =>$request->montant_cotise,
-                            'parent_id' => $exist->id,
-                            'created_at' => Carbon::now()
-                        ]);
+        //                 cotisation::insert([
+        //                     'entreprise_id' =>$request->entreprise_id,
+        //                     'employer_id' =>$request->employer_id,
+        //                     'jour_declare' =>$request->jour_declare,
+        //                     'periode_debut' =>$request->periode_debut,
+        //                     'periode_fin' =>$request->periode_fin,
+        //                     'salaire_brut' =>$request->salaire_brut,
+        //                     'salaire_soumis' =>$request->salaire_soumis,
+        //                     'montant_cotise' =>$request->montant_cotise,
+        //                     'parent_id' => $exist->id,
+        //                     'created_at' => Carbon::now()
+        //                 ]);
 
-                        // return redirect()->route('tele-dec');
-                        $data = "success";
-                        return response()->json($data, 200);
-            }
+        //                 // return redirect()->route('tele-dec');
+        //                 $data = "success";
+        //                 return response()->json($data, 200);
+        //     }
 
-        //    dd($periode_fin);
-        } else {
+        // //    dd($periode_fin);
+        // } else {
 
-         $getfisrtid =   cotisation::insertGetId([
-                'entreprise_id' =>$request->entreprise_id,
-                'employer_id' =>$request->employer_id,
-                'jour_declare' =>$request->jour_declare,
-                'periode_debut' =>$request->periode_debut,
-                'periode_fin' =>$request->periode_fin,
-                'salaire_brut' =>$request->salaire_brut,
-                'salaire_soumis' =>$request->salaire_soumis,
-                'montant_cotise' =>$request->montant_cotise,
-                'parent_id'=> null,
-                'created_at' => Carbon::now()
-            ]);
+        //  $getfisrtid =   cotisation::insertGetId([
+        //         'entreprise_id' =>$request->entreprise_id,
+        //         'employer_id' =>$request->employer_id,
+        //         'jour_declare' =>$request->jour_declare,
+        //         'periode_debut' =>$request->periode_debut,
+        //         'periode_fin' =>$request->periode_fin,
+        //         'salaire_brut' =>$request->salaire_brut,
+        //         'salaire_soumis' =>$request->salaire_soumis,
+        //         'montant_cotise' =>$request->montant_cotise,
+        //         'parent_id'=> null,
+        //         'created_at' => Carbon::now()
+        //     ]);
 
-            cotisation::insert([
-                'entreprise_id' =>$request->entreprise_id,
-                'employer_id' =>$request->employer_id,
-                'jour_declare' =>$request->jour_declare,
-                'periode_debut' =>$request->periode_debut,
-                'periode_fin' =>$request->periode_fin,
-                'salaire_brut' =>$request->salaire_brut,
-                'salaire_soumis' =>$request->salaire_soumis,
-                'montant_cotise' =>$request->montant_cotise,
-                'parent_id'=> $getfisrtid,
-                'created_at' => Carbon::now()
-            ]);
-            // return redirect()->route('tele-dec');
-            $data = "success";
-            return response()->json($data, 200);
-        }
-
-        // dd($exist);
-        // if (sizeof($exist) == 0) {
         //     cotisation::insert([
         //         'entreprise_id' =>$request->entreprise_id,
         //         'employer_id' =>$request->employer_id,
@@ -376,40 +357,13 @@ class TeleDeclController extends Controller
         //         'salaire_brut' =>$request->salaire_brut,
         //         'salaire_soumis' =>$request->salaire_soumis,
         //         'montant_cotise' =>$request->montant_cotise,
+        //         'parent_id'=> $getfisrtid,
         //         'created_at' => Carbon::now()
         //     ]);
-
         //     // return redirect()->route('tele-dec');
         //     $data = "success";
         //     return response()->json($data, 200);
-        // } else {
-        //     $month = Carbon::parse($exist[0]['periode_fin'])->format('m');
-        //     $periode_fin = Carbon::parse($request->periode_fin)->format('m');
-
-        //     if ($periode_fin == $month) {
-        //         $data = "exist";
-        //         return response()->json($data, 200);
-        //     }
-        //     else {
-
-        //         cotisation::insert([
-        //             'entreprise_id' =>$request->entreprise_id,
-        //             'employer_id' =>$request->employer_id,
-        //             'jour_declare' =>$request->jour_declare,
-        //             'periode_debut' =>$request->periode_debut,
-        //             'periode_fin' =>$request->periode_fin,
-        //             'salaire_brut' =>$request->salaire_brut,
-        //             'salaire_soumis' =>$request->salaire_soumis,
-        //             'montant_cotise' =>$request->montant_cotise,
-        //             'created_at' => Carbon::now()
-        //         ]);
-
-        //         // return redirect()->route('tele-dec');
-        //         $data = "success";
-        //         return response()->json($data, 200);
-        //     }
         // }
-
 
 
     }

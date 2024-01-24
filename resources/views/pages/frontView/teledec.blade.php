@@ -109,8 +109,10 @@
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="form-group">
-                                <label for="formGroupExampleInput">Annee</label>
-                                <input type="text" name="annee" id="annee" class="form-control" >
+                                <label for="formGroupExampleInput" class="">Annee</label>
+                                <input type="text" name="year" class="form-control" id="anneeMonth">
+
+
                             </div>
                         </div>
                     @else
@@ -129,7 +131,7 @@
                     <div class="col-md-4 mb-4">
                         <div class="form-group">
                             <label for="formGroupExampleInput">Annee</label>
-                            <input type="year" name="annee" id="annee" class="form-control" >
+                            <input type="text" name="year" class="form-control" id="anneeTrimestre">
                         </div>
                     </div>
                     @endif
@@ -179,8 +181,20 @@
         </div>
       </div>
 </section>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
 <script>
+    $("#anneeMonth").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+    });
+    $("#anneeTrimestre").datepicker({
+        format: "yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+    });
     //// Getting Employer info ////
     $(document).ready(function(){
         $("#n_immat_tele").change(function(){
@@ -232,17 +246,18 @@
     $(document).ready(function(){
         $("#cotisationSubmit").submit(function(e){
             e.preventDefault();
-            var entreprise_id = $('#entreprise_id').val(); var employer_id = $('#employer_id').val();
-            var jour_declare = $('#jour_declare').val(); var periode_debut = $('#periode_debut').val();
-            var periode_fin = $('#periode_fin').val(); var salaire_brut = $('#salaire_brut').val();
-            var salaire_soumis = $('#salaire_soumis').val(); var montant_cotise = $('#montant_cotise').val();
 
+            var entreprise_id = $('#entreprise_id').val(); var employer_id = $('#employer_id').val();
+            var jour_declare = $('#jour_declare').val(); var mois = $('#mois').val(); var anneeMonth = $('#anneeMonth').text();
+            var trimestre = $('#trimestre').val(); var salaire_brut = $('#salaire_brut').val();
+            var salaire_soumis = $('#salaire_soumis').val(); var montant_cotise = $('#montant_cotise').val();
+            alert(anneeMonth);
             $.ajax({
                 type: 'POST',
                 url: "{{ route('ajout-cotisation') }}",
                 dataType: 'json',
                 data:{employer_id:employer_id, jour_declare:jour_declare, salaire_soumis:salaire_soumis,
-                    periode_fin:periode_fin, entreprise_id:entreprise_id, periode_debut:periode_debut,
+                    mois:mois, entreprise_id:entreprise_id, trimestre:trimestre, datepicker:datepicker,
                     salaire_brut:salaire_brut, montant_cotise:montant_cotise},
                 success: function(data) {
                     if (data === "success") {
@@ -279,4 +294,6 @@
         });
     });
 </script>
+
+
 @endsection
