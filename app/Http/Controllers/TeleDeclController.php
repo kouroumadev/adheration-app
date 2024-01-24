@@ -292,6 +292,7 @@ class TeleDeclController extends Controller
         $data['nom_employer'] = $employer->nom_employer;
         $data['prenom_employer'] = $employer->prenom_employer;
         $data['employer_id'] = $employer->id;
+        $data['salaire_brut'] = $employer->salaire_brut;
         return response()->json($data, 200);
     }
 
