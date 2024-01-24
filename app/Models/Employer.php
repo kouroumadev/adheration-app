@@ -10,7 +10,6 @@ class Employer extends Model
     use HasFactory;
 
     protected $fillable = [
-
         'id',
         'nom_employer',
         'prenom_employer',

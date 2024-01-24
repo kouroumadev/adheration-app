@@ -59,9 +59,9 @@
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
                                             <div class="">
-                                                <select class="form-select" name="months_id" required>
+                                                <select class="form-select" name="mois" required>
                                                     @foreach ($mois as $m)
-                                                        <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                                        <option value="{{ $m->name }}">{{ $m->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -84,7 +84,7 @@
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
                                             <div class="">
-                                                <select class="form-select" name="trimestre_id">
+                                                <select class="form-select" name="trimestre">
                                                     @foreach ($trimestres as $trimestre)
                                                     <option value="{{ $trimestre->id }}">{{ $trimestre->name }}</option>
                                                     @endforeach

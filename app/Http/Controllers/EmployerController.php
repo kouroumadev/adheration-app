@@ -16,6 +16,7 @@ use Input;
 use Excel;
 use Maatwebsite\Excel\HeadingRowImport;
 use Alert;
+use App\Models\EmployeeLeave;
 use Redirect;
 
 class EmployerController extends Controller
@@ -191,9 +192,86 @@ class EmployerController extends Controller
 
     public function getAllEmployee(Request $request) {
         // dd($request->all());
-        $emps = Employer::where('entreprise_id',Auth::user()->id)
-                ->where('liberer', '1')->get();
 
-        dd($emps);
+
+        if($request->type == 'E-20'){
+
+            if($request->trimestre == '1')
+                $range = ['janvier','fevrier','mars'];
+            else if($request->trimestre == '2')
+                $range = ['avril','mai','juin'];
+            else if($request->trimestre == '3')
+                $range = ['juillet','aout','septembre'];
+            else
+                $range = ['octobre','novembre','decembre'];
+
+            $year = $request->year;
+
+            $finalEmp = array();
+
+            $empPaid = cotisation::where('entreprise_id',Auth::user()->entreprise_id)
+                ->whereIn('mois', $range)
+                ->where('annee', $year)
+                ->pluck('employer_id');
+
+
+
+            $empLeft = EmployeeLeave::where('entreprise_id',Auth::user()->entreprise_id)
+                // ->whereIn('mois', $range)
+                // ->where('annee', $year)
+                ->pluck('employer_id');
+
+            $empLeftNotPaid = array();
+
+            foreach($empLeft as $em){
+                if(!in_array($em,$empPaid)){
+                    $empLeftNotPaid [] = $em;
+                }
+            }
+
+            dd($empLeftNotPaid);
+
+
+
+            $emps = Employer::where('entreprise_id',Auth::user()->entreprise_id)
+                ->where('liberer', '1')
+                ->whereNotIn('id',$empPaid)->get();
+            dd($emps);
+
+
+            // $emps = DB::table('employers as emp')
+            //         ->where('emp.entreprise_id',Auth::user()->id)
+            //         ->leftJoin('cotisations as cot', function($join) use($range,$year) {
+            //             $join->on('cot.employer_id', '=', 'emp.id');
+            //             $join->whereNotIn('cot.mois', $range);
+            //             $join->where('cot.annee', '!=', $year);
+            //         })->get();
+            // dd($emps);
+
+        } else {
+            $mois = $request->mois;
+            $year = $request->year;
+
+            $emps = DB::table('employers as emp')
+                    ->where('emp.entreprise_id',Auth::user()->id)
+                    ->leftJoin('cotisations as cot', function($join) use($mois,$year) {
+                        $join->on('cot.employer_id', '=', 'emp.id');
+                        $join->where('cot.mois', '!=', $mois);
+                        $join->where('cot.annee', '!=', $year);
+                    })->get();
+            dd('not');
+        }
+
+
+
+
+
+
+
+
+
+                // ->where('liberer', '1')->get();
+
+        // dd($emps);
     }
 }
