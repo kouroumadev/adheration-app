@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cotisations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('entreprise_id')->constrained();
-            $table->string('parent_id');
+            $table->string('parent_id')->nullable();
             $table->foreignId('employer_id')->constrained();
             $table->string('jour_declare');
             $table->string('mois');

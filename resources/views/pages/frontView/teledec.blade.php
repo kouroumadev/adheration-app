@@ -24,8 +24,8 @@
                     <th scope="col">Salaire Brut</th>
                     <th scope="col">Salaire Soumis A cotisation</th>
                     <th scope="col">Montant cotise</th>
-                    <th scope="col">Periode Debut</th>
-                    <th scope="col">Periode Fin</th>
+                    <th scope="col">Periode </th>
+                    <th scope="col">Annee</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -37,8 +37,8 @@
                       <td>{{ $dem['salaire_brut']}} </td>
                       <td>{{ $dem['salaire_soumis'] }}</td>
                       <td>{{ $dem['montant_cotise']}}</td>
-                      <td>{{ $dem['periode_debut']}}</td>
-                      <td>{{ $dem['periode_fin']}} </td>
+                      <td>{{ $dem['mois']}}</td>
+                      <td>{{ $dem['annee']}} </td>
 
                       {{-- <td>
                          <a href="#" class="btn btn-info" onclick="getInfo('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#largeModal" > <i class="bi bi-eye"></i> voir</a>
@@ -67,7 +67,7 @@
     <div class="modal fade" id="ajoutModal" tabindex="-1">
         <div class="modal-dialog" style="max-width: 60%">
           <form class="row g-3"  id="cotisationSubmit">
-
+            @csrf
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">Ajout Cotisation</h5>
@@ -110,7 +110,7 @@
                         <div class="col-md-4 mb-4">
                             <div class="form-group">
                                 <label for="formGroupExampleInput" class="">Annee</label>
-                                <input type="text" name="year" class="form-control" id="anneeMonth">
+                                <input type="text" name="anneeMonth" class="form-control" id="anneeMonth">
 
 
                             </div>
@@ -131,7 +131,7 @@
                     <div class="col-md-4 mb-4">
                         <div class="form-group">
                             <label for="formGroupExampleInput">Annee</label>
-                            <input type="text" name="year" class="form-control" id="anneeTrimestre">
+                            <input type="text" name="anneeTrimestre" class="form-control" id="anneeTrimestre">
                         </div>
                     </div>
                     @endif
@@ -248,17 +248,17 @@
             e.preventDefault();
 
             var entreprise_id = $('#entreprise_id').val(); var employer_id = $('#employer_id').val();
-            var jour_declare = $('#jour_declare').val(); var mois = $('#mois').val(); var anneeMonth = $('#anneeMonth').text();
-            var trimestre = $('#trimestre').val(); var salaire_brut = $('#salaire_brut').val();
+            var jour_declare = $('#jour_declare').val(); var mois = $('#mois').val(); var anneeMonth = $('#anneeMonth').val();
+            var trimestre = $('#trimestre').val(); var salaire_brut = $('#salaire_brut').val();var anneeTrimestre = $('#anneeTrimestre').val();
             var salaire_soumis = $('#salaire_soumis').val(); var montant_cotise = $('#montant_cotise').val();
-            alert(anneeMonth);
+            //alert(anneeMonth);
             $.ajax({
                 type: 'POST',
                 url: "{{ route('ajout-cotisation') }}",
                 dataType: 'json',
                 data:{employer_id:employer_id, jour_declare:jour_declare, salaire_soumis:salaire_soumis,
-                    mois:mois, entreprise_id:entreprise_id, trimestre:trimestre, datepicker:datepicker,
-                    salaire_brut:salaire_brut, montant_cotise:montant_cotise},
+                    mois:mois, entreprise_id:entreprise_id, trimestre:trimestre, anneeMonth:anneeMonth,
+                    salaire_brut:salaire_brut, montant_cotise:montant_cotise,anneeTrimestre:anneeTrimestre},
                 success: function(data) {
                     if (data === "success") {
 

@@ -45,26 +45,21 @@
 
             $period = \Carbon\CarbonPeriod::create(date('F', strtotime($cot["periode_debut"])), '1 month', date('F', strtotime($cot["periode_fin"])));
             $part_salariale = ((int)$cot["salaire_soumis"] * 0.05);
-
+            $mois = DB::table('mois')->where('id',$cot['mois'])->get();
+            $trimestre = DB::table('trimestres')->where('id',$cot['mois'])->get();
+            //dd($mois);
             @endphp
             <tr>
                 <td>{{date('d-M-Y',strtotime($cot["created_at"]))  }}</td>
                 @if ($categorie == "E-20")
-                <td>
-                 @foreach ($period as $pd )
-                     {{ date('M', strtotime($pd)) }}-
-                 @endforeach
-               </td>
+                <td>{{ $trimestre[0]->name }}</td>
                 @else
-                <td>
-
-                  {{ date('F', strtotime($cot["periode_fin"])) }}
-               </td>
+                <td>{{ $mois[0]->name }}</td>
                 @endif
 
-                    <td>{{ date('Y', strtotime($cot["periode_fin"])) }}</td>
+                <td>{{ date('Y', strtotime($cot["annee"])) }}</td>
 
-                <td>{{ number_format($cot["salaire_brut"] )}}</td>
+                <td>{{ number_format($cot["salaire_brute"] )}}</td>
                 <td>{{ number_format($cot["salaire_soumis"]) }}</td>
                 <td>{{ number_format($cot["montant_cotise"]) }}</td>
                 <td>{{ number_format($part_salariale) }}</td>

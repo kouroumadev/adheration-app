@@ -304,67 +304,123 @@ class TeleDeclController extends Controller
 
     public function AjoutCotisation(Request $request){
         $exist = Cotisation::where('employer_id',$request->employer_id)->where('entreprise_id',$request->entreprise_id)->first();
-         dd($request->all());
-        // if ($exist) {
-        //     $month = Carbon::parse($exist->periode_fin)->format('m');
-        //     $periode_fin = Carbon::parse($request->periode_fin)->format('m');
-        //     if ($periode_fin == $month) {
-        //                 $data = "exist";
-        //                 return response()->json($data, 200);
-        //     }
-        //     else {
+        $employeur = Entreprise::findOrFail($request->entreprise_id);
+        //dd($exist->mois);
+        if ($employeur->categorie == "E+20") {
 
-        //                 cotisation::insert([
-        //                     'entreprise_id' =>$request->entreprise_id,
-        //                     'employer_id' =>$request->employer_id,
-        //                     'jour_declare' =>$request->jour_declare,
-        //                     'periode_debut' =>$request->periode_debut,
-        //                     'periode_fin' =>$request->periode_fin,
-        //                     'salaire_brut' =>$request->salaire_brut,
-        //                     'salaire_soumis' =>$request->salaire_soumis,
-        //                     'montant_cotise' =>$request->montant_cotise,
-        //                     'parent_id' => $exist->id,
-        //                     'created_at' => Carbon::now()
-        //                 ]);
+            if ($exist) {
+                if ($exist->mois == $request->mois && $exist->annee == $request->anneeMonth) {
+                    $data = "exist";
+                    return response()->json($data, 200);
+                }
+                else{
+                    cotisation::insert([
+                        'entreprise_id' =>$request->entreprise_id,
+                        'employer_id' =>$request->employer_id,
+                        'jour_declare' =>$request->jour_declare,
+                        'mois' =>$request->mois,
+                        'annee' =>$request->anneeMonth,
+                        'salaire_brute' =>$request->salaire_brut,
+                        'salaire_soumis' =>$request->salaire_soumis,
+                        'montant_cotise' =>$request->montant_cotise,
+                        'parent_id' => $exist->id,
+                        'created_at' => Carbon::now()
+                    ]);
 
-        //                 // return redirect()->route('tele-dec');
-        //                 $data = "success";
-        //                 return response()->json($data, 200);
-        //     }
 
-        // //    dd($periode_fin);
-        // } else {
+                    $data = "success";
+                    return response()->json($data, 200);
+                }
 
-        //  $getfisrtid =   cotisation::insertGetId([
-        //         'entreprise_id' =>$request->entreprise_id,
-        //         'employer_id' =>$request->employer_id,
-        //         'jour_declare' =>$request->jour_declare,
-        //         'periode_debut' =>$request->periode_debut,
-        //         'periode_fin' =>$request->periode_fin,
-        //         'salaire_brut' =>$request->salaire_brut,
-        //         'salaire_soumis' =>$request->salaire_soumis,
-        //         'montant_cotise' =>$request->montant_cotise,
-        //         'parent_id'=> null,
-        //         'created_at' => Carbon::now()
-        //     ]);
+             } else {
+                $getfisrtid =   cotisation::insertGetId([
+                    'entreprise_id' =>$request->entreprise_id,
+                    'employer_id' =>$request->employer_id,
+                    'jour_declare' =>$request->jour_declare,
+                    'mois' =>$request->mois,
+                    'annee' =>$request->anneeMonth,
+                    'salaire_brute' =>$request->salaire_brut,
+                    'salaire_soumis' =>$request->salaire_soumis,
+                    'montant_cotise' =>$request->montant_cotise,
+                    'parent_id'=> null,
+                    'created_at' => Carbon::now()
+                ]);
 
-        //     cotisation::insert([
-        //         'entreprise_id' =>$request->entreprise_id,
-        //         'employer_id' =>$request->employer_id,
-        //         'jour_declare' =>$request->jour_declare,
-        //         'periode_debut' =>$request->periode_debut,
-        //         'periode_fin' =>$request->periode_fin,
-        //         'salaire_brut' =>$request->salaire_brut,
-        //         'salaire_soumis' =>$request->salaire_soumis,
-        //         'montant_cotise' =>$request->montant_cotise,
-        //         'parent_id'=> $getfisrtid,
-        //         'created_at' => Carbon::now()
-        //     ]);
-        //     // return redirect()->route('tele-dec');
-        //     $data = "success";
-        //     return response()->json($data, 200);
-        // }
+                cotisation::insert([
+                    'entreprise_id' =>$request->entreprise_id,
+                    'employer_id' =>$request->employer_id,
+                    'jour_declare' =>$request->jour_declare,
+                    'mois' =>$request->mois,
+                    'annee' =>$request->anneeMonth,
+                    'salaire_brute' =>$request->salaire_brut,
+                    'salaire_soumis' =>$request->salaire_soumis,
+                    'montant_cotise' =>$request->montant_cotise,
+                    'parent_id'=> $getfisrtid,
+                    'created_at' => Carbon::now()
+                ]);
+                // return redirect()->route('tele-dec');
+                $data = "success";
+                return response()->json($data, 200);
+             }
+        }
+        else {
 
+         if ($exist) {
+            if ($exist->mois == $request->trimestre && $exist->annee == $request->anneeTrimestre) {
+                $data = "exist";
+                return response()->json($data, 200);
+            }
+            else{
+                cotisation::insert([
+                    'entreprise_id' =>$request->entreprise_id,
+                    'employer_id' =>$request->employer_id,
+                    'jour_declare' =>$request->jour_declare,
+                    'mois' =>$request->trimestre,
+                    'annee' =>$request->anneeTrimestre,
+                    'salaire_brute' =>$request->salaire_brut,
+                    'salaire_soumis' =>$request->salaire_soumis,
+                    'montant_cotise' =>$request->montant_cotise,
+                    'parent_id' => $exist->id,
+                    'created_at' => Carbon::now()
+                ]);
+
+
+                $data = "success";
+                return response()->json($data, 200);
+            }
+
+         } else {
+            $getfisrtid =   cotisation::insertGetId([
+                'entreprise_id' =>$request->entreprise_id,
+                'employer_id' =>$request->employer_id,
+                'jour_declare' =>$request->jour_declare,
+                'mois' =>$request->trimestre,
+                'annee' =>$request->anneeTrimestre,
+                'salaire_brute' =>$request->salaire_brut,
+                'salaire_soumis' =>$request->salaire_soumis,
+                'montant_cotise' =>$request->montant_cotise,
+                'parent_id'=> null,
+                'created_at' => Carbon::now()
+            ]);
+
+            cotisation::insert([
+                'entreprise_id' =>$request->entreprise_id,
+                'employer_id' =>$request->employer_id,
+                'jour_declare' =>$request->jour_declare,
+                'mois' =>$request->trimestre,
+                'annee' =>$request->anneeTrimestre,
+                'salaire_brute' =>$request->salaire_brut,
+                'salaire_soumis' =>$request->salaire_soumis,
+                'montant_cotise' =>$request->montant_cotise,
+                'parent_id'=> $getfisrtid,
+                'created_at' => Carbon::now()
+            ]);
+            // return redirect()->route('tele-dec');
+            $data = "success";
+            return response()->json($data, 200);
+         }
+
+        }
 
     }
 

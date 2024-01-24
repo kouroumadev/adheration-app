@@ -37,9 +37,9 @@ class EmployerController extends Controller
     $data = cotisation::whereNull('parent_id')->where('employer_id',$employer[0]['id'])->with(['children','entreprises'])->get();
     //$data = cotisation::where('parent_id',"!=",null)->where('employer_id',$employer[0]['id'])->where('entreprise_id',$employer[0]['entreprises']['id'])->get();
     $grouped = $data->all();
-    //  dd($data);
+    //   dd($grouped);
       $cotisation = cotisation::with(['entreprises','employers'])->where('employer_id',$employer[0]['id'])->where('parent_id',"!=",null)
-    ->selectRaw("SUM(salaire_brut) as total_brut")
+    ->selectRaw("SUM(salaire_brute) as total_brut")
     ->selectRaw("SUM(montant_cotise) as total_cotise")
     ->selectRaw("SUM(salaire_soumis) as total_soumis")
     ->selectRaw("entreprises.raison_sociale")
@@ -48,10 +48,10 @@ class EmployerController extends Controller
 
     ->groupBy('entreprise_id','entreprises.raison_sociale')
     ->get();
-    $total_brut = cotisation::where('employer_id',$employer[0]['id'])->where('parent_id',"!=",null)->sum("salaire_brut");
+    $total_brut = cotisation::where('employer_id',$employer[0]['id'])->where('parent_id',"!=",null)->sum("salaire_brute");
     $total_soumis = cotisation::where('employer_id',$employer[0]['id'])->where('parent_id',"!=",null)->sum("salaire_soumis");
     $total_cotise = cotisation::where('employer_id',$employer[0]['id'])->where('parent_id',"!=",null)->sum("montant_cotise");
-    //  dd($total_cotise);
+     // dd($cotisation);
         return view('pages.frontView.employer.espace-cotisation',compact('employer','cotisation','grouped','total_brut','total_soumis','total_cotise'));
     }
 
@@ -72,7 +72,7 @@ class EmployerController extends Controller
         // dd($data['representants']);
         $data['cotisation'] = cotisation::with(['entreprises','employers'])->where('employer_id',$employer_id)
         ->where('parent_id',"!=",null)->where('entreprise_id',$entreprise_id)->get();
-        $data['total_brut'] = cotisation::where('employer_id',$employer_id)->where('entreprise_id',$entreprise_id)->where('parent_id',"!=",null)->sum("salaire_brut");
+        $data['total_brut'] = cotisation::where('employer_id',$employer_id)->where('entreprise_id',$entreprise_id)->where('parent_id',"!=",null)->sum("salaire_brute");
         $data['total_soumis'] = cotisation::where('employer_id',$employer_id)->where('entreprise_id',$entreprise_id)->where('parent_id',"!=",null)->sum("salaire_soumis");
         $data['total_cotise'] = cotisation::where('employer_id',$employer_id)->where('entreprise_id',$entreprise_id)->where('parent_id',"!=",null)->sum("montant_cotise");
         $data['part'] = cotisation::where('employer_id',$employer_id)->where('entreprise_id',$entreprise_id)->where('parent_id',"!=",null)->sum("salaire_soumis");
@@ -98,7 +98,7 @@ class EmployerController extends Controller
         );
 
 
-        $headers = ['nom_employer','prenom_employer','sexe_employer','matricule','adresse_employer','email_employer','n_immatriculation','date_naissance_employer','lieu_naissance_employer','pays_naissance_employer','nationalite','ville_employer','quartier_employer','commune_employer','tel_employer','situation_matrimoniale','profession','n_cin','date_del_cin','type_employer','lieu_del_cin','date_embauche','salaire_brut','emploi_occupe','liberer'];
+        $headers = ['nom_employer','prenom_employer','sexe_employer','matricule','adresse_employer','email_employer','n_immatriculation','date_naissance_employer','lieu_naissance_employer','pays_naissance_employer','nationalite','ville_employer','quartier_employer','commune_employer','tel_employer','situation_matrimoniale','profession','n_cin','date_del_cin','type_employer','lieu_del_cin','date_embauche','salaire_brute','emploi_occupe','liberer'];
 
         if(Input::hasFile('employee_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('employee_file'));
