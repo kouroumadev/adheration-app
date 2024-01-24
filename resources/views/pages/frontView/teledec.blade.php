@@ -1,4 +1,4 @@
- @extends('pages.frontView.master')
+@extends('pages.frontView.master')
 @section('content-front')
 
 <section class="section dashboard">
@@ -57,7 +57,7 @@
           </div>
 
         </div>
-    </div>
+      </div>
 
 
   <div class="card" style="max-width: 100%">
@@ -94,14 +94,47 @@
                     <input type="hidden" name="entreprise_id" id="entreprise_id" value="{{ $entreprise->id }}">
                     <input type="hidden" name="employer_id" id="employer_id">
 
-                    <div class="col-md-4 mb-2">
-                        <label for="periode_debut" class="form-label">Periode debut</label>
-                        <input type="date" name="periode_debut" class="form-control" id="periode_debut">
-                      </div>
-                      <div class="col-md-4 mb-2">
-                          <label for="periode_fin" class="form-label">Periode Fin</label>
-                          <input type="date" name="periode_fin" class="form-control" id="periode_fin">
-                      </div>
+                    @if ($entreprise->categorie == "E+20")
+                        <div class="col-md-4 mb-4">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Mois</label>
+                                <select class="form-select" name="mois"
+                                    id="mois"
+                                    aria-label="Floating label select example">
+                                    @foreach ($mois as $var )
+                                        <option value="{{ $var->id }}">{{ $var->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Annee</label>
+                                <input type="text" name="annee" id="annee" class="form-control" >
+                            </div>
+                        </div>
+                    @else
+                    <div class="col-md-4 mb-4">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Trimestre</label>
+                            <select class="form-select" name="trimestre"
+                                id="trimestre"
+                                aria-label="Floating label select example">
+                                @foreach ($trimestre as $var )
+                                    <option value="{{ $var->id }}">{{ $var->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Annee</label>
+                            <input type="year" name="annee" id="annee" class="form-control" >
+                        </div>
+                    </div>
+                    @endif
+
+                    <hr/>
                     <div class="col-md-6 mb-2">
                       <label for="nom_employer" class="form-label">Nom</label>
                       <input type="text" name="nom_employer" id="nom_employer" class="form-control" >
@@ -117,15 +150,15 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="salaire_brut" class="form-label">Salaire Brut</label>
-                        <input type="text" name="salaire_brut" id="salaire_brut" class="form-control" >
+                        <input type="text" name="salaire_brut" id="salaire_brut" class="form-control" disabled >
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label for="salaire_soumis" class="form-label">Salaire Soumis a Cotisation</label>
-                        <input type="text" name="salaire_soumis" id="salaire_soumis" class="form-control" >
+                        <label for="salaire_soumis" class="form-label">Salaire Soumis</label>
+                        <input type="text" name="salaire_soumis" id="salaire_soumis" class="form-control" disabled >
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="montant_cotise" class="form-label">Montant des cotisation</label>
-                        <input type="text" name="montant_cotise" id="montant_cotise" class="form-control">
+                        <input type="text" name="montant_cotise" id="montant_cotise" class="form-control" disabled>
                     </div>
 
 
@@ -159,20 +192,13 @@
                 dataType: 'json',
                 data:{immatriculation:immatriculation},
                 success: function(data) {
-                    //  console.log(data.employer_id);
+                     console.log(data);
                     $("#nom_employer").val(data.nom_employer);
                     $("#prenom_employer").val(data.prenom_employer);
+                    $("#salaire_brut").val(data.salaire_brut);
                     $("#employer_id").val(data.employer_id);
 
-                }
-            });
-        });
-    });
-
-    /////// Calcul des cotisations ///////////
-    $(document).ready(function(){
-        $("#salaire_brut").blur(function(){
-            var salaireBrut = parseInt($("#salaire_brut").val());
+                    var salaireBrut = parseInt($("#salaire_brut").val());
             var salaireSoumise;
             var MontantCotise;
 
@@ -196,8 +222,12 @@
                 $("#montant_cotise").val(MontantCotise)
             }
 
-        })
+                }
+            });
+        });
     });
+
+
 
     $(document).ready(function(){
         $("#cotisationSubmit").submit(function(e){
