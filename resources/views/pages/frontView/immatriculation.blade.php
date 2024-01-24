@@ -36,7 +36,7 @@
                                         <td>{{ $dem['prenom_employer'] }}</td>
                                         <td>{{ $dem['nom_employer'] }}</td>
                                         <td>{{ $dem['date_naissance_employer'] }}</td>
-                                        <td><button  class="btn btn-danger rounded-pill" id="{{ $dem['id'] }}" onclick="Libre(this.id)">Sortie</button></td>
+                                        <td><button  class="btn btn-danger rounded-pill" id="{{ $dem['id'] }}"  data-bs-toggle="modal" data-bs-target="#libererModal">Sortie</button></td>
                                     </tr>
                                 @endforeach
                                 {{-- {{ route('liberer-employer', $dem['id']) }} --}}
@@ -428,7 +428,34 @@
       </div>
     </form>
     </div>
-  </div>
+</div>
+
+<div class="modal fade" id="libererModal" tabindex="-1" aria-labelledby="libererModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form  id="changeEmployeurSubmit">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Changement de Matricule</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Matricule</label>
+                <input type="text" class="form-control" id="matriculeGet" name="matriculeGet" placeholder="matricule">
+              </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="submit" class="btn btn-success">Changer employeur</button>
+        </div>
+      </div>
+    </form>
+    </div>
+</div>
 </section>
 
     <script>
@@ -536,52 +563,52 @@
 
         });
 
-        function Libre(id){
-          var id = id;
-            Swal.fire({
-                    title: "Etes Vous Sure?",
-                    text: "Vous ne pourrez pas revenir en arrière!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Oui, Liberer !"
-                    }).then((result) => {
-                    if (result.isConfirmed) {
+        // function Libre(id){
+        //   var id = id;
+        //     Swal.fire({
+        //             title: "Etes Vous Sure?",
+        //             text: "Vous ne pourrez pas revenir en arrière!",
+        //             icon: "warning",
+        //             showCancelButton: true,
+        //             confirmButtonColor: "#3085d6",
+        //             cancelButtonColor: "#d33",
+        //             confirmButtonText: "Oui, Liberer !"
+        //             }).then((result) => {
+        //             if (result.isConfirmed) {
 
-                        $.ajax({
-                            type: 'GET',
-                            url: "{{ route('liberer-employer') }}",
-                            dataType: 'json',
-                            data:{id:id},
+        //                 $.ajax({
+        //                     type: 'GET',
+        //                     url: "{{ route('liberer-employer') }}",
+        //                     dataType: 'json',
+        //                     data:{id:id},
 
-                            success: function(data) {
+        //                     success: function(data) {
 
-                            }
-                        });
+        //                     }
+        //                 });
 
-                        // Swal.fire({
-                        // title: "Liberé!",
-                        // text: "Cet employé à été libré.",
-                        // icon: "success"
-                        // });
+        //                 // Swal.fire({
+        //                 // title: "Liberé!",
+        //                 // text: "Cet employé à été libré.",
+        //                 // icon: "success"
+        //                 // });
 
-                        Swal.fire({
-                        title: "Liberé!",
-                        text: "Cet employé à été libré.",
-                        icon: "success",
+        //                 Swal.fire({
+        //                 title: "Liberé!",
+        //                 text: "Cet employé à été libré.",
+        //                 icon: "success",
 
-                        confirmButtonColor: "#3085d6",
+        //                 confirmButtonColor: "#3085d6",
 
-                        confirmButtonText: "OK"
-                        }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "immatriculation";
-                        }
-                        });
+        //                 confirmButtonText: "OK"
+        //                 }).then((result) => {
+        //                 if (result.isConfirmed) {
+        //                     window.location.href = "immatriculation";
+        //                 }
+        //                 });
 
-                    }
-            });
-        }
+        //             }
+        //     });
+        // }
     </script>
 @endsection
