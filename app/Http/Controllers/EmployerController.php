@@ -190,6 +190,6 @@ class EmployerController extends Controller
     }
 
     public function getAllEmployee(Request $request) {
-        dd($request->all);
+        dd($request->all());
     }
 }
