@@ -59,7 +59,9 @@ class TeleDeclController extends Controller
         // dd($cotisations[0]['salaire_brut']);
         $entreprise = Entreprise::find($entreprise_id);
         // dd($entreprise);
-        return view('pages.frontView.import-teledeclaration',compact('entreprise','cotisations','employers'));
+
+        $mois = DB::table('mois')->get();
+        return view('pages.frontView.import-teledeclaration',compact('entreprise','cotisations','employers','mois'));
 
     }
 
