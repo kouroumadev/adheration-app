@@ -84,7 +84,7 @@
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
                                             <div class="">
-                                                <select class="form-select" name="trimestre">
+                                                <select class="form-select" name="trimestre_id">
                                                     @foreach ($trimestres as $trimestre)
                                                     <option value="{{ $trimestre->id }}">{{ $trimestre->name }}</option>
                                                     @endforeach
