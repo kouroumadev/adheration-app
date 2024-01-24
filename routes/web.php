@@ -100,6 +100,7 @@ Route::middleware([
 
     ///////ROUTES FOR COTISATIONS ///////////////
     Route::post('/import-cotisation', [EmployerController::class, 'importCotisation'])->name('import-cotisation');
+    Route::get('/import-get-emoloyees', [EmployerController::class, 'getAllEmployee'])->name('import-get-employees');
     Route::post('/import-cotisation-auto', [EmployerController::class, 'importCotisationAuto'])->name('import-cotisation-auto');
 
 

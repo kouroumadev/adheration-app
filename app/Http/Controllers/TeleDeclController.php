@@ -61,7 +61,9 @@ class TeleDeclController extends Controller
         // dd($entreprise);
 
         $mois = DB::table('mois')->get();
-        return view('pages.frontView.import-teledeclaration',compact('entreprise','cotisations','employers','mois'));
+        $trimestres = DB::table('trimestres')->get();
+
+        return view('pages.frontView.import-teledeclaration',compact('entreprise','cotisations','employers','mois','trimestres'));
 
     }
 

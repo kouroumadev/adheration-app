@@ -46,20 +46,47 @@
                                         </div>
 
                                         <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Enregister</button>
+                                            <button type="submit" class="btn btn-success">Enregister</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            @if ($entreprise->categorie == "E+20")
+                            <form method="get" action="{{ route('import-get-employees') }}">
+                                @csrf
+                                @if ($entreprise->categorie == "E+20")
                                     <div class="row justify-content-center">
 
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
                                             <div class="">
-                                                <select class="form-select" name="commune_employer">
+                                                <select class="form-select" name="months_id" required>
                                                     @foreach ($mois as $m)
                                                         <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
+                                            <div class="">
+                                                <select class="form-select" name="year_id" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-success">Afficher</button>
+                                        </div>
+
+                                    </div>
+                                @else
+                                    <div class="row justify-content-center align-items-center">
+
+                                        <div class="col-md-3">
+                                            <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
+                                            <div class="">
+                                                <select class="form-select" name="commune_employer">
+                                                    @foreach ($trimestres as $trimestre)
+                                                    <option value="{{ $trimestre->id }}">{{ $trimestre->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -78,32 +105,8 @@
                                         </div>
 
                                     </div>
-                            @else
-                            <div class="row justify-content-center">
-
-                                <div class="col-md-3">
-                                    <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
-                                    <div class="">
-                                        <select class="form-select" name="commune_employer">
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
-                                    <div class="">
-                                        <select class="form-select" name="commune_employer"
-                                            id="commune_employer"
-                                            aria-label="Floating label select example">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="submit" class="btn btn-success">Afficher</button>
-                                </div>
-
-                            </div>
-                            @endif
+                                @endif
+                            </form>
 
                             </div>
 
