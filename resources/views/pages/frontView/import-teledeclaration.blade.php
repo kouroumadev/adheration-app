@@ -51,7 +51,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <form method="get" action="{{ route('import-get-employees') }}">
+                            <form method="post" action="{{ route('import-get-employees') }}">
                                 @csrf
                                 @if ($entreprise->categorie == "E+20")
                                     <div class="row justify-content-center">
@@ -69,8 +69,8 @@
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
                                             <div class="">
-                                                <select class="form-select" name="year_id" required>
-                                                </select>
+                                                <input type="text" name="year" class="form-control" id="datepicker">
+                                                <input type="hidden" name="type" value="E+20">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -84,7 +84,7 @@
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
                                             <div class="">
-                                                <select class="form-select" name="commune_employer">
+                                                <select class="form-select" name="trimestre">
                                                     @foreach ($trimestres as $trimestre)
                                                     <option value="{{ $trimestre->id }}">{{ $trimestre->name }}</option>
                                                     @endforeach
@@ -94,10 +94,8 @@
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
                                             <div class="">
-                                                <select class="form-select" name="commune_employer"
-                                                    id="commune_employer"
-                                                    aria-label="Floating label select example">
-                                                </select>
+                                                <input type="text" name="year" class="form-control" id="datepicker">
+                                                <input type="hidden" name="type" value="E-20">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -180,8 +178,8 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
 {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
 {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/> --}}
 
