@@ -190,6 +190,10 @@ class EmployerController extends Controller
     }
 
     public function getAllEmployee(Request $request) {
-        dd($request->all());
+        // dd($request->all());
+        $emps = Employer::where('entreprise_id',Auth::user()->id)
+                ->where('liberer', '1')->get();
+
+        dd($emps);
     }
 }
