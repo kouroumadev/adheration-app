@@ -94,24 +94,46 @@
                     <input type="hidden" name="entreprise_id" id="entreprise_id" value="{{ $entreprise->id }}">
                     <input type="hidden" name="employer_id" id="employer_id">
 
+                    @if ($entreprise->categorie == "E+20")
+                        <div class="col-md-4 mb-4">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Mois</label>
+                                <select class="form-select" name="mois"
+                                    id="mois"
+                                    aria-label="Floating label select example">
+                                    @foreach ($mois as $var )
+                                        <option value="{{ $var->id }}">{{ $var->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Annee</label>
+                                <input type="text" name="annee" id="annee" class="form-control" >
+                            </div>
+                        </div>
+                    @else
                     <div class="col-md-4 mb-4">
                         <div class="form-group">
-                            <label for="formGroupExampleInput">Mois</label>
-                            <select class="form-select" name="commune_employer"
-                                id="commune_employer"
+                            <label for="formGroupExampleInput">Trimestre</label>
+                            <select class="form-select" name="trimestre"
+                                id="trimestre"
                                 aria-label="Floating label select example">
+                                @foreach ($trimestre as $var )
+                                    <option value="{{ $var->id }}">{{ $var->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
                         <div class="form-group">
                             <label for="formGroupExampleInput">Annee</label>
-                            <select class="form-select" name="commune_employer"
-                                id="commune_employer"
-                                aria-label="Floating label select example">
-                            </select>
+                            <input type="year" name="annee" id="annee" class="form-control" >
                         </div>
                     </div>
+                    @endif
+
                     <hr/>
                     <div class="col-md-6 mb-2">
                       <label for="nom_employer" class="form-label">Nom</label>

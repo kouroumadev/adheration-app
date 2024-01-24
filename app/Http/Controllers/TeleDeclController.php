@@ -277,10 +277,12 @@ class TeleDeclController extends Controller
         $cotisations = cotisation::with(['entreprises','employers'])->where('entreprise_id',$entreprise_id)
         ->where('parent_id',"!=",null)->get();
         $employers = Employer::where('entreprise_id',$entreprise_id)->get();
-        // dd($cotisations[0]['salaire_brut']);
+        $mois = DB::table('mois')->get();
+        $trimestre = DB::table('trimestres')->get();
+        //dd($mois);
         $entreprise = Entreprise::find($entreprise_id);
         // dd($entreprise);
-        return view('pages.frontView.teledec',compact('entreprise','cotisations','employers'));
+        return view('pages.frontView.teledec',compact('entreprise','cotisations','employers','mois','trimestre'));
     }
 
     public function EmployerDetail($id){
