@@ -78,47 +78,17 @@
 
                                     </div>
                             @else
-                                <div class="row justify-content-center">
+                                {{-- <div class="row justify-content-center">
 
                                     <div class="col-md-4">
                                         <label for="inputText" class="col-sm-6 col-form-label">Trimestres</label>
-                                        <div class="">
-
-                            <form action="">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="formGroupExampleInput">Example label</label>
-                                            <select class="form-select" name="commune_employer"
-                                                id="commune_employer"
-                                                aria-label="Floating label select example">
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="inputText" class="col-sm-6 col-form-label">Annee</label>
-                                        <div class="">
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="formGroupExampleInput">Example label</label>
-                                            <select class="form-select" name="commune_employer"
-                                                id="commune_employer"
-                                                aria-label="Floating label select example">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-success">Afficher</button>
-                                    </div>
+                                        <div class=""> --}}
 
 
-                                </div>
                             @endif
 
-                                </div>
-                            </form>
+                            </div>
+
                                 {{-- <div class="col-md-3">
                                     <button class="btn btn-success">valider</button>
                                 </div> --}}
