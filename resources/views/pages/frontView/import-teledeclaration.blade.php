@@ -46,21 +46,48 @@
                                         </div>
 
                                         <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Enregister</button>
+                                            <button type="submit" class="btn btn-success">Enregister</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            @if ($entreprise->categorie == "E+20")
+                            <form method="get" action="{{ route('import-get-employees') }}">
+                                @csrf
+                                @if ($entreprise->categorie == "E+20")
                                     <div class="row justify-content-center">
 
-<<<<<<< HEAD
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Mois</label>
                                             <div class="">
-                                                <select class="form-select" name="commune_employer"
-                                                    id="commune_employer"
-                                                    aria-label="Floating label select example">
+                                                <select class="form-select" name="months_id" required>
+                                                    @foreach ($mois as $m)
+                                                        <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
+                                            <div class="">
+                                                <select class="form-select" name="year_id" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-success">Afficher</button>
+                                        </div>
+
+                                    </div>
+                                @else
+                                    <div class="row justify-content-center align-items-center">
+
+                                        <div class="col-md-3">
+                                            <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
+                                            <div class="">
+                                                <select class="form-select" name="commune_employer">
+                                                    @foreach ($trimestres as $trimestre)
+                                                    <option value="{{ $trimestre->id }}">{{ $trimestre->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -78,55 +105,14 @@
                                         </div>
 
                                     </div>
-                            @else
-                                <div class="row justify-content-center">
-
-                                    <div class="col-md-4">
-                                        <label for="inputText" class="col-sm-6 col-form-label">Trimestres</label>
-                                        <div class="">
-=======
-
-                            <form action="">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="formGroupExampleInput">Example label</label>
->>>>>>> 0817ad30d566a612550a0294ff380b62b4cb3138
-                                            <select class="form-select" name="commune_employer"
-                                                id="commune_employer"
-                                                aria-label="Floating label select example">
-                                            </select>
-                                        </div>
-                                    </div>
-<<<<<<< HEAD
-                                    <div class="col-md-4">
-                                        <label for="inputText" class="col-sm-6 col-form-label">Annee</label>
-                                        <div class="">
-=======
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="formGroupExampleInput">Example label</label>
->>>>>>> 0817ad30d566a612550a0294ff380b62b4cb3138
-                                            <select class="form-select" name="commune_employer"
-                                                id="commune_employer"
-                                                aria-label="Floating label select example">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-success">Afficher</button>
-                                    </div>
-<<<<<<< HEAD
-
-                                </div>
-                            @endif
-=======
-                                </div>
+                                @endif
                             </form>
+
+                            </div>
+
                                 {{-- <div class="col-md-3">
                                     <button class="btn btn-success">valider</button>
                                 </div> --}}
->>>>>>> 0817ad30d566a612550a0294ff380b62b4cb3138
 
 
 
@@ -191,4 +177,20 @@
 
         </div>
     </section>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+{{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
+{{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/> --}}
+
+
+    <script>
+        $("#datepicker").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+    </script>
 @endsection
