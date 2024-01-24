@@ -54,23 +54,21 @@
 
 
                             <form action="">
-                                <div class="row justify-content-center">
+                                <div class="row justify-content-center align-items-center">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInput">Example label</label>
-                                            <select class="form-select" name="commune_employer"
-                                                id="commune_employer"
-                                                aria-label="Floating label select example">
+                                            <label for="formGroupExampleInput">Mois</label>
+                                            <select class="form-select" name="commune_employer" aria-label="Floating label select example">
+                                                @foreach ($mois as $m)
+                                                    <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="formGroupExampleInput">Example label</label>
-                                            <select class="form-select" name="commune_employer"
-                                                id="commune_employer"
-                                                aria-label="Floating label select example">
-                                            </select>
+                                            <label for="formGroupExampleInput">Annee</label>
+                                            <input type="text" class="form-control" id="datepicker">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -145,4 +143,20 @@
 
         </div>
     </section>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+{{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
+{{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/> --}}
+
+
+    <script>
+        $("#datepicker").datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+    </script>
 @endsection
