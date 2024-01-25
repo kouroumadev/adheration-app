@@ -208,15 +208,13 @@ class EmployerController extends Controller
 
             $year = $request->year;
 
+            //GET ALL EMPLOYEES THAT HAVE PAID
             $empPaid = cotisation::where('entreprise_id',Auth::user()->entreprise_id)
                 ->whereIn('mois', $range)
                 ->where('annee', $year)
                 ->pluck('employer_id');
 
-            // dd($empPaid);
-
-
-
+            //GET ALL LEFT EMPLOYEES THAT HAVE PAID
             $empLeft = EmployeeLeave::where('entreprise_id',Auth::user()->entreprise_id)
                 // ->whereIn('mois', $range)
                 // ->where('annee', $year)
@@ -231,9 +229,6 @@ class EmployerController extends Controller
                 }
             }
 
-            // dd($empLeftNotPaid);
-
-
 
             $empInNotPaid = Employer::where('entreprise_id',Auth::user()->entreprise_id)
                 ->where('liberer', '1')
@@ -243,6 +238,16 @@ class EmployerController extends Controller
             $finalEmpId = array_unique(array_merge($empInNotPaid->toArray(),$empLeftNotPaid), SORT_REGULAR);
 
             dd($finalEmpId);
+
+            $employees = Employer::whereIn('id',$finalEmpId)->where('entreprise_id',Auth()->user()->entreprise->id)->get();
+            $employers = Employer::where('entreprise_id',Auth()->user()->entreprise->id)->get();
+            $entreprise = Entreprise::find(Auth()->user()->entreprise->id);
+            // dd($entreprise);
+
+            $mois = DB::table('mois')->get();
+            $trimestres = DB::table('trimestres')->get();
+
+            return view('pages.frontView.import-teledeclaration', compact('employees','employers','entreprise','mois','trimestres'));
 
 
             // $emps = DB::table('employers as emp')

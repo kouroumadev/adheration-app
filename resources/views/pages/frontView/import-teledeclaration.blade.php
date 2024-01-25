@@ -123,6 +123,8 @@
 
         </div>
 
+        @isset($employees)
+
         <div class="row m-auto">
             <div class="col-12 ">
                 <div class="card">
@@ -137,32 +139,22 @@
                             </div> --}}
                             <thead>
                                 <tr>
-                                    <th scope="col">Nom</th>
+                                    <th scope="col">Numéro Affiliation</th>
+                                    <th scope="col">Matricule</th>
                                     <th scope="col">Prenom</th>
-                                    <th scope="col">Salaire Brut</th>
-                                    <th scope="col">Salaire Soumis A cotisation</th>
-                                    <th scope="col">Montant cotise</th>
-                                    <th scope="col">Mois</th>
-                                    <th scope="col">Annee</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Date de Naissance</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($cotisations as $dem )
+                                @foreach ($employees as $dem )
                                 <tr>
 
-                                    <td>{{ $dem['employers']['nom_employer'] }}</td>
-                                    <td>{{ $dem['employers']['prenom_employer']}}</td>
-                                    <td>{{ $dem['salaire_brute']}} </td>
-                                    <td>{{ $dem['salaire_soumis'] }}</td>
-                                    <td>{{ $dem['montant_cotise']}}</td>
-                                    <td>{{ $dem['mois']}}</td>
-                                    <td>{{ $dem['annee']}} </td>
-
-                                    {{-- <td>
-                                       <a href="#" class="btn btn-info" onclick="getInfo('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#largeModal" > <i class="bi bi-eye"></i> voir</a>
-                                       <a href="#" class="btn btn-success" onclick="assignId('{{ $dem['id'] }}')" data-bs-toggle="modal" data-bs-target="#basicModal"> <i class="bi bi-check"></i> Approuver</a>
-
-                                    </td> --}}
+                                    <td> <a href="{{ route('employer-detail',$dem['id']) }}"> {{ $dem['n_immatriculation'] }}</a></td>
+                                    <td>{{ $dem['matricule'] }}</td>
+                                    <td>{{ $dem['prenom_employer'] }}</td>
+                                    <td>{{ $dem['nom_employer'] }}</td>
+                                    <td>{{ $dem['date_naissance_employer'] }}</td>
                                   </tr>
                                 @endforeach
                                 {{-- {{ route('liberer-employer', $dem['id']) }} --}}
@@ -174,6 +166,7 @@
             </div>
 
         </div>
+        @endisset
     </section>
 
 
