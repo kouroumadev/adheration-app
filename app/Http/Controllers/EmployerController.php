@@ -207,12 +207,12 @@ class EmployerController extends Controller
 
             $year = $request->year;
 
-            $finalEmp = array();
-
             $empPaid = cotisation::where('entreprise_id',Auth::user()->entreprise_id)
                 ->whereIn('mois', $range)
                 ->where('annee', $year)
                 ->pluck('employer_id');
+
+            // dd($empPaid);
 
 
 
@@ -220,23 +220,28 @@ class EmployerController extends Controller
                 // ->whereIn('mois', $range)
                 // ->where('annee', $year)
                 ->pluck('employer_id');
+            // dd($empLeft);
 
             $empLeftNotPaid = array();
 
             foreach($empLeft as $em){
-                if(!in_array($em,$empPaid)){
+                if(!in_array($em,$empPaid->toArray())){
                     $empLeftNotPaid [] = $em;
                 }
             }
 
-            dd($empLeftNotPaid);
+            // dd($empLeftNotPaid);
 
 
 
-            $emps = Employer::where('entreprise_id',Auth::user()->entreprise_id)
+            $empInNotPaid = Employer::where('entreprise_id',Auth::user()->entreprise_id)
                 ->where('liberer', '1')
-                ->whereNotIn('id',$empPaid)->get();
-            dd($emps);
+                ->whereNotIn('id',$empPaid)->pluck('id');
+            dd($empInNotPaid);
+
+            $finalEmpId = array_unique(array_merge($empInNotPaid->toArray(),$empLeftNotPaid), SORT_REGULAR);
+
+            dd($finalEmpId);
 
 
             // $emps = DB::table('employers as emp')
