@@ -99,7 +99,7 @@ class EmployerController extends Controller
         );
 
 
-        $headers = ['nom_employer','prenom_employer','sexe_employer','matricule','adresse_employer','email_employer','n_immatriculation','date_naissance_employer','lieu_naissance_employer','pays_naissance_employer','nationalite','ville_employer','quartier_employer','commune_employer','tel_employer','situation_matrimoniale','profession','n_cin','date_del_cin','type_employer','lieu_del_cin','date_embauche','salaire_brute','emploi_occupe','liberer'];
+        $headers = ['nom_employer','prenom_employer','sexe_employer','matricule','adresse_employer','email_employer','n_immatriculation','date_naissance_employer','lieu_naissance_employer','pays_naissance_employer','nationalite','ville_employer','quartier_employer','commune_employer','tel_employer','situation_matrimoniale','profession','n_cin','date_del_cin','type_employer','lieu_del_cin','date_embauche','salaire_brut','emploi_occupe','liberer'];
 
         if(Input::hasFile('employee_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('employee_file'));
