@@ -36,12 +36,12 @@
                                         <td>{{ $dem['prenom_employer'] }}</td>
                                         <td>{{ $dem['nom_employer'] }}</td>
                                         <td>{{ $dem['date_naissance_employer'] }}</td>
-                                        <td><button  class="btn btn-danger rounded-pill" id="{{ $dem['id'] }}"  data-bs-toggle="modal" data-bs-target="#libererModal{{ $dem['id'] }}">Sortie</button></td>
+                                        <td><button  class="btn btn-danger rounded-pill" id="{{ $dem['id'] }}" onclick="GetEmployeInfo(this.id)"  data-bs-toggle="modal" data-bs-target="#libererModal{{ $dem['id'] }}">Sortie</button></td>
 
 
 
                                         <div class="modal fade" id="libererModal{{ $dem['id'] }}" tabindex="-1" aria-labelledby="libererModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
+                                            <div class="modal-dialog modal-lg">
                                               <div class="modal-content">
                                                 <form method="post" action="{{ route('immatriculation-emp-leave') }}"  id="">
                                                     @csrf
@@ -50,6 +50,49 @@
                                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <div class="row mb-3 text-center "> <h3>Details Sur Employé</h3></div>
+                                <div class="row">
+                                    <div class="col-8">
+
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-4 label ">Prenom</div>
+                                            <div class="col-lg-6 col-md-8" id="prenom"></div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-4 label ">Nom</div>
+                                            <div class="col-lg-6 col-md-8" id="nom"></div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-4 label">Matricule</div>
+                                            <div class="col-lg-6 col-md-8" id="mat"></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-4 label">Numero Immatriculation</div>
+                                            <div class="col-lg-6 col-md-8" id="n_immatriculation"></div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-4 label">Date de Naissance</div>
+                                            <div class="col-lg-6 col-md-8" id="dob"></div>
+                                        </div>
+
+                                        {{-- <div class="row mb-3">
+                                            <div class="col-lg-3 col-md-4 label">Dernier Employeur</div>
+                                            <div class="col-lg-9 col-md-8" id="e_dern_emp"></div>
+                                        </div> --}}
+
+
+                                    </div>
+                                    <div class="col-4">
+                                        <img src="" alt="" srcset="" id="photo_verif" width="150" height="150">
+                                    </div>
+                                    </div>
+                                                    <hr/>
                                                         <div class="mb-3">
                                                             <label for="exampleFormControlInput1" class="form-label">Mois</label>
                                                             <select class="form-select" name="months_id" required>
@@ -488,6 +531,26 @@
     <script>
         function assignEmpId(value) {
             document.getElementById('employee_id').value = value;
+        }
+
+        function GetEmployeInfo(id){
+            var id = id;
+            $.ajax({
+                     type: 'GET',
+                     url: "{{ route('get-employe-info') }}",
+                     dataType: 'json',
+                     data:{id:id},
+                     success: function(data) {
+
+                            $("#prenom").text(data.prenom_employer);
+                            $("#nom").text(data.nom_employer);
+                            $("#mat").text(data.matricule);
+                            $("#n_immatriculation").text(data.n_immatriculation);
+                            $("#dob").text(data.date_naissance_employer);
+                            $("#photo_verif").attr('src', data.photo);
+                    }
+            });
+            // alert(id);
         }
     </script>
     <script>
