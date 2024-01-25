@@ -124,10 +124,11 @@
                                             </form>
                                             </div>
                                         </div>
+                                    </tr>
 
 
                                     @endforeach
-                                    </tr>
+
 
 
                                 {{-- {{ route('liberer-employer', $dem['id']) }} --}}
