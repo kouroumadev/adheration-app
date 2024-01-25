@@ -823,25 +823,7 @@
                                             <div class="col-lg-9 col-md-8" id="e_dern_emp_disp"></div>
                                         </div>
 
-                                        {{-- <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Situation Matrimoniale</div>
-                                            <div class="col-lg-9 col-md-8">Marie</div>
-                                        </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Sexe</div>
-                                            <div class="col-lg-9 col-md-8">Male</div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Date de Naissance</div>
-                                            <div class="col-lg-9 col-md-8">13/05/1998</div>
-                                            </div>
-
-                                            <div class="row">
-                                            <div class="col-lg-3 col-md-4 label">Lieu de Naissance</div>
-                                            <div class="col-lg-9 col-md-8">Conakry</div>
-                                        </div> --}}
                                     </div>
                                     <div class="col-4">
                                         <img src="" alt="" srcset="" id="photo_verif" width="150" height="150">

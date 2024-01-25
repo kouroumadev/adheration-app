@@ -82,6 +82,7 @@ Route::middleware([
     Route::post('/ajout-employer', [TeleDeclController::class, 'AjoutEmployer'])->name('ajout-employer');
     Route::get('/employer-detail/{id}', [TeleDeclController::class, 'EmployerDetail'])->name('employer-detail');
     Route::get('/get-employer', [TeleDeclController::class, 'GetEmployer'])->name('get-employer');
+    Route::get('/get-employe-info', [TeleDeclController::class, 'GetEmployeInfo'])->name('get-employe-info');
     Route::post('/ajout-cotisation', [TeleDeclController::class, 'AjoutCotisation'])->name('ajout-cotisation');
     Route::get('/verification-assure', [TeleDeclController::class, 'VerifAssure'])->name('verification-assure');
     Route::get('/liberer-employer', [TeleDeclController::class, 'LibererEmployer'])->name('liberer-employer');

@@ -326,6 +326,20 @@ class TeleDeclController extends Controller
         return response()->json($data, 200);
     }
 
+    public function GetEmployeInfo(Request $request){
+
+        $employer = Employer::find($request->id);
+        //dd($employer);
+        $data['nom_employer'] = $employer->nom_employer;
+        $data['prenom_employer'] = $employer->prenom_employer;
+        $data['n_immatriculation'] = $employer->n_immatriculation;
+        $data['matricule'] = $employer->matricule;
+        $data['date_naissance_employer'] = $employer->date_naissance_employer;
+        $data['employer_id'] = $employer->id;
+        $data['photo'] = $employer->photo;
+        return response()->json($data, 200);
+    }
+
     public function AjoutCotisation(Request $request){
         $exist = Cotisation::where('employer_id',$request->employer_id)->where('entreprise_id',$request->entreprise_id)->first();
         $employeur = Entreprise::findOrFail($request->entreprise_id);
