@@ -154,6 +154,7 @@ class EmployerController extends Controller
 
         if(Input::hasFile('cotisation_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('cotisation_file'));
+            // dd($headings[0][0]);
 
             if(count($headers) != count($headings[0][0])){
                 return Redirect::back()->withErrors([
@@ -237,7 +238,7 @@ class EmployerController extends Controller
             $empInNotPaid = Employer::where('entreprise_id',Auth::user()->entreprise_id)
                 ->where('liberer', '1')
                 ->whereNotIn('id',$empPaid)->pluck('id');
-            dd($empInNotPaid);
+            // dd($empInNotPaid);
 
             $finalEmpId = array_unique(array_merge($empInNotPaid->toArray(),$empLeftNotPaid), SORT_REGULAR);
 

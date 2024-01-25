@@ -44,14 +44,17 @@ class TeleDeclController extends Controller
     public function employeeLeave(Request $request){
         // dd($request->all());
 
-        $employee = Employer::find($request->employee_id)->get()->first();
-        dd($employee);
-        $employee->liberer = '0';
-        $employee->save();
+        $employee = Employer::find($request->employee_id);
+        // dd($employee['liberer']);
+        $employee->update([
+            'liberer' => '0'
+        ]);
+        // $employee['0']->liberer = '0';
+        // $employee->save();
 
         $emp = new EmployeeLeave();
         $emp->entreprise_id = Auth::user()->entreprise_id;
-        $emp->employer_id = $employee->id;
+        $emp->employer_id = $request->employee_id;
         $emp->mois = $request->months_id;
         $emp->annee = $request->year;
         $emp->motif = $request->motif;
