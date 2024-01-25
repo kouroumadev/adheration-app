@@ -99,7 +99,7 @@ class EmployerController extends Controller
         );
 
 
-        $headers = ['nom_employer','prenom_employer','sexe_employer','matricule','adresse_employer','email_employer','n_immatriculation','date_naissance_employer','lieu_naissance_employer','pays_naissance_employer','nationalite','ville_employer','quartier_employer','commune_employer','tel_employer','situation_matrimoniale','profession','n_cin','date_del_cin','type_employer','lieu_del_cin','date_embauche','salaire_brute','emploi_occupe','liberer'];
+        $headers = ['nom_employer','prenom_employer','sexe_employer','matricule','adresse_employer','email_employer','n_immatriculation','date_naissance_employer','lieu_naissance_employer','pays_naissance_employer','nationalite','ville_employer','quartier_employer','commune_employer','tel_employer','situation_matrimoniale','profession','n_cin','date_del_cin','type_employer','lieu_del_cin','date_embauche','salaire_brut','emploi_occupe','liberer'];
 
         if(Input::hasFile('employee_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('employee_file'));
@@ -154,6 +154,7 @@ class EmployerController extends Controller
 
         if(Input::hasFile('cotisation_file')){
             $headings = (new HeadingRowImport)->toArray(request()->file('cotisation_file'));
+            // dd($headings[0][0]);
 
             if(count($headers) != count($headings[0][0])){
                 return Redirect::back()->withErrors([
@@ -207,12 +208,12 @@ class EmployerController extends Controller
 
             $year = $request->year;
 
-            $finalEmp = array();
-
             $empPaid = cotisation::where('entreprise_id',Auth::user()->entreprise_id)
                 ->whereIn('mois', $range)
                 ->where('annee', $year)
                 ->pluck('employer_id');
+
+            // dd($empPaid);
 
 
 
@@ -220,23 +221,28 @@ class EmployerController extends Controller
                 // ->whereIn('mois', $range)
                 // ->where('annee', $year)
                 ->pluck('employer_id');
+            // dd($empLeft);
 
             $empLeftNotPaid = array();
 
             foreach($empLeft as $em){
-                if(!in_array($em,$empPaid)){
+                if(!in_array($em,$empPaid->toArray())){
                     $empLeftNotPaid [] = $em;
                 }
             }
 
-            dd($empLeftNotPaid);
+            // dd($empLeftNotPaid);
 
 
 
-            $emps = Employer::where('entreprise_id',Auth::user()->entreprise_id)
+            $empInNotPaid = Employer::where('entreprise_id',Auth::user()->entreprise_id)
                 ->where('liberer', '1')
-                ->whereNotIn('id',$empPaid)->get();
-            dd($emps);
+                ->whereNotIn('id',$empPaid)->pluck('id');
+            // dd($empInNotPaid);
+
+            $finalEmpId = array_unique(array_merge($empInNotPaid->toArray(),$empLeftNotPaid), SORT_REGULAR);
+
+            dd($finalEmpId);
 
 
             // $emps = DB::table('employers as emp')

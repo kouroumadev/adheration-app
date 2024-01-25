@@ -61,6 +61,7 @@ class EmployeesImport implements ToModel, WithValidation, WithHeadingRow
             'nom_employer' => 'required',
             'prenom_employer' => 'required',
             'matricule' => 'required',
+            'salaire_brut' => 'required',
         ];
     }
 

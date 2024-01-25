@@ -36,9 +36,57 @@
                                         <td>{{ $dem['prenom_employer'] }}</td>
                                         <td>{{ $dem['nom_employer'] }}</td>
                                         <td>{{ $dem['date_naissance_employer'] }}</td>
-                                        <td><button  class="btn btn-danger rounded-pill" id="{{ $dem['id'] }}"  data-bs-toggle="modal" data-bs-target="#libererModal" onclick="assignEmpId({{ $dem['id'] }})">Sortie</button></td>
+                                        <td><button  class="btn btn-danger rounded-pill" id="{{ $dem['id'] }}"  data-bs-toggle="modal" data-bs-target="#libererModal{{ $dem['id'] }}">Sortie</button></td>
+
+
+
+                                        <div class="modal fade" id="libererModal{{ $dem['id'] }}" tabindex="-1" aria-labelledby="libererModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                <form method="post" action="{{ route('immatriculation-emp-leave') }}"  id="">
+                                                    @csrf
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalLabel">Validation de la sortie</h5>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1" class="form-label">Mois</label>
+                                                            <select class="form-select" name="months_id" required>
+                                                                @foreach ($mois as $m)
+                                                                    <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            {{-- <input type="text" class="form-control" id="matriculeGet" name="matriculeGet" placeholder="matricule"> --}}
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1" class="form-label">Annee</label>
+                                                            <input type="text" name="year" class="form-control datepicker" id="datepicker" required>
+                                                            <input type="hidden" value="{{ $dem->id }}" name="employee_id" id="employee_id">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleFormControlInput1" class="form-label">Motif</label>
+                                                            <select class="form-select" name="motif" required>
+                                                                <option value="licenciment">Licenciment</option>
+                                                                <option value="fin_de_contrat">Fin de contrat</option>
+                                                                <option value="changement_employer">Changement d'employer</option>
+
+                                                            </select>
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="submit" class="btn btn-success">Valider</button>
+                                                </div>
+                                              </div>
+                                            </form>
+                                            </div>
+                                        </div>
+
+
+                                    @endforeach
                                     </tr>
-                                @endforeach
+
+
                                 {{-- {{ route('liberer-employer', $dem['id']) }} --}}
 
                             </tbody>
@@ -430,47 +478,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="libererModal" tabindex="-1" aria-labelledby="libererModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form method="post" action="{{ route('immatriculation-emp-leave') }}"  id="">
-            @csrf
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Validation de la sortie</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Mois</label>
-                    <select class="form-select" name="months_id" required>
-                        @foreach ($mois as $m)
-                            <option value="{{ $m->id }}">{{ $m->name }}</option>
-                        @endforeach
-                    </select>
-                    {{-- <input type="text" class="form-control" id="matriculeGet" name="matriculeGet" placeholder="matricule"> --}}
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Annee</label>
-                    <input type="text" name="year" class="form-control" id="datepicker" required>
-                    <input type="hidden" name="employee_id" id="employee_id">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Motif</label>
-                    <select class="form-select" name="motif" required>
-                        <option value="licenciment">Licenciment</option>
-                        <option value="fin_de_contrat">Fin de contrat</option>
-                        <option value="changement_employer">Changement d'employer</option>
 
-                    </select>
-                </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Valider</button>
-        </div>
-      </div>
-    </form>
-    </div>
-</div>
 </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -483,7 +491,7 @@
         }
     </script>
     <script>
-        $("#datepicker").datepicker({
+        $(".datepicker").datepicker({
             format: "yyyy",
             viewMode: "years",
             minViewMode: "years"
