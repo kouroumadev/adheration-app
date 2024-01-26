@@ -269,6 +269,34 @@ class EmployerController extends Controller
     }
 
     public function importCotisationAuto(Request $request) {
-        dd($request->all());
+        // dd(json_decode($request->employees_list));
+        foreach(json_decode($request->employees_list) as $emp){
+
+            $salaire = (int)$emp->salaire_brut;
+            if($salaire > 0 && $salaire <= 550000){
+                $cota = (550000 * 23)/100;
+                $soumis = 550000;
+            } else if($salaire > 550000 && $salaire <= 2500000){
+                $cota = ($salaire * 23)/100;
+                $soumis = $salaire;
+            } else {
+                $cota = (2500000 * 23)/100;
+                $soumis = 2500000;
+            }
+
+            $cota = new Cotisation();
+
+            $cota->entreprise_id = Auth::user()->entreprise_id;
+            $cota->parent_id = $emp->parent_id;
+            $cota->employer_id = $emp->id;
+            $cota->jour_declare = $emp->jour_declare;
+            $cota->mois = $emp->mois;
+            $cota->salaire_brute = $emp->salaire_brute;
+            $cota->salaire_soumis = $soumis;
+            $cota->montant_cotise = $cota;
+
+            $cota->save();
+
+        }
     }
 }

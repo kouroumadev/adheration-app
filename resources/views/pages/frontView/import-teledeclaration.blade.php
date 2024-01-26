@@ -127,18 +127,18 @@
 
         <div class="row m-auto">
             <div class="col-12 ">
+                <form method="post" action="{{ route('import-cot') }}" >
+                    @csrf
+                    <input type="hidden" name="employees_list" value="{{ $employees }}">
+                    <button type="submit" class="btn btn-success">Faire la teledeclaration </button>
+                </form>
                 <div class="card">
                     <div class="card-header">
 
                     </div>
                     <div class="card-body">
                         <table class="table datatable">
-                            <form action="{{ route('import-cotisation-auto') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="employees" value="{{ $employees }}">
-                                <button type="submit" class="btn btn-success"> <i
-                                    class="bi bi-save"></i> Faire la teledeclaration </button>
-                            </form>
+
 
                             {{-- <div class="row mb-2" style="width: 200px;">
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEmployer"> <i
