@@ -85,6 +85,9 @@
                                             <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
                                             <div class="">
                                                 <select class="form-select" name="trimestre">
+                                                    @isset($selected_trimestre)
+                                                    <option value="{{ $selected_trimestre['0']->id }}">{{ $selected_trimestre['0']->name }}</option>
+                                                    @endisset
                                                     @foreach ($trimestres as $trimestre)
                                                     <option value="{{ $trimestre->id }}">{{ $trimestre->name }}</option>
                                                     @endforeach
@@ -94,8 +97,15 @@
                                         <div class="col-md-3">
                                             <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
                                             <div class="">
+                                                @isset($year)
+                                                    <input type="text" name="year" value="{{ $year }}" class="form-control" id="datepicker">
+                                                    <input type="hidden" name="type" value="E-20">
+                                                @else
                                                 <input type="text" name="year" class="form-control" id="datepicker">
                                                 <input type="hidden" name="type" value="E-20">
+
+                                                @endisset
+
                                             </div>
                                         </div>
                                         <div class="col-md-3">

@@ -196,17 +196,22 @@ class EmployerController extends Controller
 
 
         if($request->type == 'E-20'){
+            $tri = $request->trimestre;
+            $year = $request->year;
 
-            if($request->trimestre == '1')
+            $selected_trimestre = DB::table('trimestres')->where('id',$tri)->get();
+            // dd($selected_trimestre[0]->id);
+
+            if($tri == '1')
                 $range = ['janvier','fevrier','mars'];
-            else if($request->trimestre == '2')
+            else if($tri == '2')
                 $range = ['avril','mai','juin'];
-            else if($request->trimestre == '3')
+            else if($tri == '3')
                 $range = ['juillet','aout','septembre'];
             else
                 $range = ['octobre','novembre','decembre'];
 
-            $year = $request->year;
+
 
             //GET ALL EMPLOYEES THAT HAVE PAID
             $empPaid = cotisation::where('entreprise_id',Auth::user()->entreprise_id)
@@ -250,7 +255,7 @@ class EmployerController extends Controller
             $mois = DB::table('mois')->get();
             $trimestres = DB::table('trimestres')->get();
 
-            return view('pages.frontView.import-teledeclaration', compact('employees','employers','entreprise','mois','trimestres'));
+            return view('pages.frontView.import-teledeclaration', compact('employees','employers','entreprise','mois','trimestres','year','selected_trimestre'));
 
         } else {
             $mois = $request->mois;
@@ -269,7 +274,7 @@ class EmployerController extends Controller
     }
 
     public function importCotisationAuto(Request $request) {
-        // dd(json_decode($request->employees_list));
+        dd(json_decode($request->employees_list));
         foreach(json_decode($request->employees_list) as $emp){
 
             $salaire = (int)$emp->salaire_brut;
@@ -287,10 +292,11 @@ class EmployerController extends Controller
             $cota = new Cotisation();
 
             $cota->entreprise_id = Auth::user()->entreprise_id;
-            $cota->parent_id = $emp->parent_id;
+            $cota->parent_id = '11';
             $cota->employer_id = $emp->id;
-            $cota->jour_declare = $emp->jour_declare;
+            $cota->jour_declare = '28';
             $cota->mois = $emp->mois;
+            $cota->annee = $emp->annee;
             $cota->salaire_brute = $emp->salaire_brute;
             $cota->salaire_soumis = $soumis;
             $cota->montant_cotise = $cota;
@@ -298,5 +304,9 @@ class EmployerController extends Controller
             $cota->save();
 
         }
+
+        Alert::toast('Le fichier de Cotisation a ete enregistre avec Succès','success');
+            return redirect()->route('tele-dec');
+
     }
 }
