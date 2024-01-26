@@ -237,11 +237,14 @@ class EmployerController extends Controller
 
             $finalEmpId = array_unique(array_merge($empInNotPaid->toArray(),$empLeftNotPaid), SORT_REGULAR);
 
-            dd($finalEmpId);
+            // dd($finalEmpId);
 
-            $employees = Employer::whereIn('id',$finalEmpId)->where('entreprise_id',Auth()->user()->entreprise->id)->get();
-            $employers = Employer::where('entreprise_id',Auth()->user()->entreprise->id)->get();
-            $entreprise = Entreprise::find(Auth()->user()->entreprise->id);
+            $employees = Employer::where('entreprise_id',Auth::user()->entreprise_id)
+            ->whereIn('id',$finalEmpId)
+            ->get();
+
+            $employers = Employer::where('entreprise_id',Auth::user()->entreprise_id)->get();
+            $entreprise = Entreprise::find(Auth::user()->entreprise_id);
             // dd($entreprise);
 
             $mois = DB::table('mois')->get();
