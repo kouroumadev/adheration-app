@@ -196,33 +196,33 @@ class EmployerController extends Controller
 
 
         if($request->type == 'E-20'){
-            $tri = $request->trimestre;
+            $trimestre = $request->mois;
             $year = $request->year;
 
-            $selected_trimestre = DB::table('trimestres')->where('id',$tri)->get();
+            $selected_trimestre = DB::table('trimestres')->where('id',$trimestre)->get();
             // dd($selected_trimestre[0]->id);
 
-            if($tri == '1')
-                $range = ['janvier','fevrier','mars'];
-            else if($tri == '2')
-                $range = ['avril','mai','juin'];
-            else if($tri == '3')
-                $range = ['juillet','aout','septembre'];
+            if($trimestre == '1')
+                $range = ['1','2','3'];
+            else if($trimestre == '2')
+                $range = ['4','5','6'];
+            else if($trimestre == '3')
+                $range = ['7','8','9'];
             else
-                $range = ['octobre','novembre','decembre'];
+                $range = ['10','11','12'];
 
 
 
             //GET ALL EMPLOYEES THAT HAVE PAID
             $empPaid = cotisation::where('entreprise_id',Auth::user()->entreprise_id)
-                ->whereIn('mois', $range)
+                ->where('mois', $trimestre)
                 ->where('annee', $year)
                 ->pluck('employer_id');
 
-            //GET ALL LEFT EMPLOYEES THAT HAVE PAID
+            //GET ALL LEFT EMPLOYEES FOR THIS COMPANY
             $empLeft = EmployeeLeave::where('entreprise_id',Auth::user()->entreprise_id)
-                // ->whereIn('mois', $range)
-                // ->where('annee', $year)
+                ->whereIn('mois', $range)
+                ->where('annee', $year)
                 ->pluck('employer_id');
             // dd($empLeft);
 
@@ -274,7 +274,8 @@ class EmployerController extends Controller
     }
 
     public function importCotisationAuto(Request $request) {
-        dd(json_decode($request->employees_list));
+
+        // dd($request->all());
         foreach(json_decode($request->employees_list) as $emp){
 
             $salaire = (int)$emp->salaire_brut;
@@ -289,19 +290,23 @@ class EmployerController extends Controller
                 $soumis = 2500000;
             }
 
-            $cota = new Cotisation();
 
-            $cota->entreprise_id = Auth::user()->entreprise_id;
-            $cota->parent_id = '11';
-            $cota->employer_id = $emp->id;
-            $cota->jour_declare = '28';
-            $cota->mois = $emp->mois;
-            $cota->annee = $emp->annee;
-            $cota->salaire_brute = $emp->salaire_brute;
-            $cota->salaire_soumis = $soumis;
-            $cota->montant_cotise = $cota;
+            $cotis = new Cotisation();
 
-            $cota->save();
+            $cotis->entreprise_id = Auth::user()->entreprise_id;
+            $cotis->parent_id = '11';
+            $cotis->employer_id = $emp->id;
+            $cotis->jour_declare = '28';
+            $cotis->mois = $request->period;
+            $cotis->annee = $request->year;
+            $cotis->salaire_brute = $salaire;
+            $cotis->salaire_soumis = $soumis;
+            $cotis->montant_cotise = $cota;
+
+            $cotis->save();
+
+
+
 
         }
 

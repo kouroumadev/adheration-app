@@ -81,10 +81,10 @@
                                 @else
                                     <div class="row justify-content-center align-items-center">
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="inputText" class="col-sm-4 col-form-label">Trimestre</label>
                                             <div class="">
-                                                <select class="form-select" name="trimestre">
+                                                <select class="form-select" name="mois" required>
                                                     @isset($selected_trimestre)
                                                     <option value="{{ $selected_trimestre['0']->id }}">{{ $selected_trimestre['0']->name }}</option>
                                                     @endisset
@@ -94,21 +94,21 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="inputText" class="col-sm-4 col-form-label">Annee</label>
                                             <div class="">
                                                 @isset($year)
-                                                    <input type="text" name="year" value="{{ $year }}" class="form-control" id="datepicker">
+                                                    <input type="text" name="year" value="{{ $year }}" class="form-control" id="datepicker" required>
                                                     <input type="hidden" name="type" value="E-20">
                                                 @else
-                                                <input type="text" name="year" class="form-control" id="datepicker">
-                                                <input type="hidden" name="type" value="E-20">
+                                                    <input type="text" name="year" class="form-control" id="datepicker" required>
+                                                    <input type="hidden" name="type" value="E-20">
 
                                                 @endisset
 
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4 pt-4" style="">
                                             <button type="submit" class="btn btn-success">Afficher</button>
                                         </div>
 
@@ -140,6 +140,8 @@
                 <form method="post" action="{{ route('import-cot') }}" >
                     @csrf
                     <input type="hidden" name="employees_list" value="{{ $employees }}">
+                    <input type="hidden" name="year" value="{{ $year }}">
+                    <input type="hidden" name="period" value="{{ $selected_trimestre['0']->id }}">
                     <button type="submit" class="btn btn-success">Faire la teledeclaration </button>
                 </form>
                 <div class="card">
