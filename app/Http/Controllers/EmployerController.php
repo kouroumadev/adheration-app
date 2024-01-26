@@ -170,7 +170,7 @@ class EmployerController extends Controller
                     $err[] = $value;
                 }
 
-                return Redirect::back()->withErrors([
+                return redirect(route('import-teledeclaration'))->withErrors([
                     'msg' => "Le fichier de Cotisation doit etre conforme avec le fichier teste, les colonnes ci-dessous sont absentes",
                     'sms' => $err,
                 ]);
@@ -181,11 +181,11 @@ class EmployerController extends Controller
             // dd($t);
 
             Alert::toast('Le fichier de Cotisation a ete enregistre avec Succès','success');
-            return redirect()->back();
+            return redirect()->route('import-teledeclaration');
 
         } else {
             Alert::toast('Le fichier du Cotisation est obligatoire','error');
-            return redirect()->back();
+            return redirect()->route('import-teledeclaration');
 
         }
 
@@ -252,16 +252,6 @@ class EmployerController extends Controller
 
             return view('pages.frontView.import-teledeclaration', compact('employees','employers','entreprise','mois','trimestres'));
 
-
-            // $emps = DB::table('employers as emp')
-            //         ->where('emp.entreprise_id',Auth::user()->id)
-            //         ->leftJoin('cotisations as cot', function($join) use($range,$year) {
-            //             $join->on('cot.employer_id', '=', 'emp.id');
-            //             $join->whereNotIn('cot.mois', $range);
-            //             $join->where('cot.annee', '!=', $year);
-            //         })->get();
-            // dd($emps);
-
         } else {
             $mois = $request->mois;
             $year = $request->year;
@@ -276,16 +266,9 @@ class EmployerController extends Controller
             dd('not');
         }
 
+    }
 
-
-
-
-
-
-
-
-                // ->where('liberer', '1')->get();
-
-        // dd($emps);
+    public function importCotisationAuto(Request $request) {
+        dd($request->all());
     }
 }

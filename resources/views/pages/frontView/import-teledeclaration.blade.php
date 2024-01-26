@@ -123,7 +123,7 @@
 
         </div>
 
-        @isset($employees)
+        @if(isset($employees) && !empty($employees))
 
         <div class="row m-auto">
             <div class="col-12 ">
@@ -133,6 +133,13 @@
                     </div>
                     <div class="card-body">
                         <table class="table datatable">
+                            <form action="{{ route('import-cotisation-auto') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="employees" value="{{ $employees }}">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEmployer"> <i
+                                    class="bi bi-save"></i> Faire la teledeclaration </button>
+                            </form>
+
                             {{-- <div class="row mb-2" style="width: 200px;">
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEmployer"> <i
                                         class="bi bi-save"></i> Ajout Employer</button>
@@ -166,7 +173,7 @@
             </div>
 
         </div>
-        @endisset
+        @endif
     </section>
 
 
