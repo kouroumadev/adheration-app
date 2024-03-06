@@ -9,7 +9,7 @@
           <div class="card">
 
             <div class="card-body">
-              <h5 class="card-title">Liste des Cotises</h5>
+              <h5 class="card-title">Liste des Cotisess</h5>
 
 
               <!-- Table with stripped rows -->
