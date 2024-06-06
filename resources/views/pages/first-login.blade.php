@@ -79,7 +79,7 @@
                         <input type="hidden" name="id" value="{{ $id }}" id="">
                     <div class="col-12">
                       <label for="formGroupExampleInput2" class="form-label">Nouveau Mot de passe</label>
-                      <input type="password" name="password" required class="form-control" id="password" placeholder=" Nouveau Mot de passe">
+                      <input type="password" name="password" required class="form-control" id="password" placeholder="Nouveau Mot de passe">
 
                                 @error('password')
                                     <p class="text-danger"> {{ $message }} </p>
